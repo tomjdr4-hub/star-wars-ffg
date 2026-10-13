@@ -45,7 +45,6 @@ https://github.com/tomjdr4-hub/star-wars-ffg/releases/latest/download/system.jso
   - résolution du Conflit en fin de session ;
   - seuils du côté obscur et des parangons ;
   - statut d'adepte du côté obscur conservé jusqu'au rachat.
-
 - **Compendium des espèces** : les 19 espèces des trois livres, avec leur texte. En déposant une espèce sur un
   personnage, ses caractéristiques, son XP de départ, ses rangs et ses talents offerts sont appliqués
   (une fenêtre s'ouvre pour les choix, par exemple Charme ou Tromperie).
