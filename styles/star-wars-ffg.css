@@ -304,3 +304,6 @@
 .combat-tracker .swffg-init-value { white-space: nowrap; font-size: 0.9em; }
 .combat-tracker .swffg-init-value .swffg-symbol { margin: 0 2px 0 1px; }
 .combat-tracker .swffg-claim { color: var(--swffg-accent); }
+.star-wars-ffg.initiative-dialog .swffg-init-row > span { display: flex; flex-direction: column; }
+.star-wars-ffg.initiative-dialog .swffg-init-quick { font-size: 0.8em; display: flex; align-items: center; gap: 4px; }
+.star-wars-ffg.initiative-dialog .swffg-init-quick input { width: 40px; height: 20px; }

@@ -28,19 +28,29 @@ export class SWCombat extends Combat {
   async rollInitiative(ids, options = {}) {
     ids = typeof ids === "string" ? [ids] : ids;
     let skills = options.initiativeSkills;
+    let quick = options.quickReflexes ?? {};
     if ( !skills ) {
       const combatants = ids.map(id => this.combatants.get(id)).filter(c => c?.isOwner && c.actor);
       if ( combatants.length ) {
-        skills = await chooseInitiativeSkills(combatants);
-        if ( !skills ) return this; // fenêtre fermée : rien n'est lancé
+        const choice = await chooseInitiativeSkills(combatants);
+        if ( !choice ) return this; // fenêtre fermée : rien n'est lancé
+        ({ skills, quick } = choice);
       }
     }
     this._initiativeSkills = skills ?? {};
+    this._quickReflexes = quick;
     try {
-      return await super.rollInitiative(ids, options);
+      await super.rollInitiative(ids, options);
     } finally {
       delete this._initiativeSkills;
+      delete this._quickReflexes;
     }
+    // Réaction éclair : le stress choisi est subi une fois le jet effectué.
+    for ( const [id, n] of Object.entries(quick) ) {
+      const actor = this.combatants.get(id)?.actor;
+      if ( actor && (n > 0) ) await sufferStrain(actor, n);
+    }
+    return this;
   }
 
   /** @override — initiative décroissante, égalité : PJ avant PNJ, puis ordre d'emplacement mémorisé. */
@@ -111,7 +121,10 @@ export class SWCombatant extends Combatant {
     const skill = this.parent?._initiativeSkills?.[this.id] ?? game.settings.get(SYSTEM_ID, "initiativeSkill");
     const pool = DicePool.fromSkill(this.actor, skill, { difficulty: 0 }).applyRemovals();
     const flavor = `${game.i18n.localize("SWFFG.Roll.initiative")} (${game.i18n.localize(SKILLS[skill].label)})`;
-    return new NarrativeRoll(pool.toFormula(), {}, { flavor, skill, initiative: true });
+    const quick = this.parent?._quickReflexes?.[this.id] ?? 0;
+    const results = quick ? { success: quick } : {};
+    const label = quick ? ` — ${game.i18n.format("SWFFG.Initiative.quickApplied", { n: quick })}` : "";
+    return new NarrativeRoll(pool.toFormula(), {}, { flavor: flavor + label, skill, initiative: true, results });
   }
 }
 
@@ -168,11 +181,19 @@ async function chooseInitiativeSkills(combatants) {
   const def = game.settings.get(SYSTEM_ID, "initiativeSkill");
   const options = selected => INITIATIVE_SKILLS
     .map(k => `<option value="${k}" ${k === selected ? "selected" : ""}>${game.i18n.localize(SKILLS[k].label)}</option>`).join("");
-  const rows = combatants.map(c => `<div class="swffg-init-row">
+  const rows = combatants.map(c => {
+    const rank = quickReflexesRank(c.actor);
+    const quick = rank
+      ? `<label class="swffg-init-quick" data-tooltip="${game.i18n.localize("SWFFG.Initiative.quickHint")}">
+          ${game.i18n.localize("SWFFG.Initiative.quick")}
+          <input type="number" name="quick-${c.id}" value="0" min="0" max="${rank}"> / ${rank}</label>`
+      : "";
+    return `<div class="swffg-init-row">
       <img src="${c.img}" width="28" height="28">
-      <span>${foundry.utils.escapeHTML(c.name)}</span>
+      <span>${foundry.utils.escapeHTML(c.name)}${quick}</span>
       <select name="${c.id}">${options(def)}</select>
-    </div>`).join("");
+    </div>`;
+  }).join("");
   const content = `<p class="hint">${game.i18n.localize("SWFFG.Initiative.hint")}</p>
     <div class="swffg-init-all">
       <button type="button" data-swffg-all="vigilance">${game.i18n.localize("SWFFG.Initiative.allVigilance")}</button>
@@ -187,7 +208,18 @@ async function chooseInitiativeSkills(combatants) {
     ok: {
       label: game.i18n.localize("SWFFG.Roll.roll"),
       icon: "fa-solid fa-dice",
-      callback: (event, button) => Object.fromEntries([...button.form.querySelectorAll("select")].map(s => [s.name, s.value]))
+      callback: (event, button) => {
+        const form = button.form;
+        const skills = Object.fromEntries([...form.querySelectorAll("select")].map(s => [s.name, s.value]));
+        const quick = {};
+        for ( const input of form.querySelectorAll("input[name^='quick-']") ) {
+          const id = input.name.slice(6);
+          const max = Number(input.max) || 0;
+          const n = Math.clamp(Number(input.value) || 0, 0, max);
+          if ( n ) quick[id] = n;
+        }
+        return { skills, quick };
+      }
     },
     render: (event, dialog) => {
       const html = dialog.element ?? dialog;
@@ -196,4 +228,26 @@ async function chooseInitiativeSkills(combatants) {
       }
     }
   });
+}
+
+/** Rang du talent Réaction éclair d'un acteur (0 s'il ne l'a pas). */
+function quickReflexesRank(actor) {
+  const t = actor?.itemTypes.talent.find(i => i.name.normalize("NFC").toLowerCase() === "réaction éclair");
+  return t ? Math.max(t.system.ranked ? t.system.rank : 1, 1) : 0;
+}
+
+/** Stress subi : les rivaux et sbires n'ont pas de seuil de stress, le stress devient des blessures (chapitre VI). */
+async function sufferStrain(actor, n) {
+  if ( ["character", "nemesis"].includes(actor.type) ) return actor.update({ "system.strain.value": actor.system.strain.value + n });
+  if ( ["rival", "minion"].includes(actor.type) ) return actor.update({ "system.wounds.value": actor.system.wounds.value + n });
+}
+
+/** Les vaisseaux et véhicules n'ont pas d'initiative : ce sont les membres d'équipage qui agissent (chapitre VII). */
+export function onPreCreateCombatant(combatant, data, options, userId) {
+  const actor = combatant.actor ?? game.actors.get(data.actorId);
+  if ( actor?.type !== "vehicle" ) return;
+  if ( userId === game.user.id ) {
+    ui.notifications.warn(game.i18n.format("SWFFG.Initiative.noVehicle", { name: actor.name }));
+  }
+  return false;
 }

@@ -432,7 +432,11 @@
       "slotPC": "PJ",
       "slotNPC": "PNJ",
       "claim": "Prendre cet emplacement (agir maintenant)",
-      "cannotClaim": "Ce combattant ne peut pas prendre l'emplacement en cours (autre camp, ou il a déjà agi ce round)."
+      "cannotClaim": "Ce combattant ne peut pas prendre l'emplacement en cours (autre camp, ou il a déjà agi ce round).",
+      "quick": "Réaction éclair : stress",
+      "quickHint": "Subir autant de stress que de succès ajoutés au test (au maximum le rang de Réaction éclair). Les rivaux et sbires subissent des blessures à la place.",
+      "quickApplied": "Réaction éclair : +{n} succès",
+      "noVehicle": "{name} est un vaisseau ou un véhicule : il n'a pas d'initiative. Ajoutez au combat les membres de son équipage (pilote, artilleurs…), qui agissent chacun à leur emplacement (chapitre VII)."
     }
   }
 }

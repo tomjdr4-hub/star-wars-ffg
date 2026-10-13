@@ -432,7 +432,11 @@
       "slotPC": "PC",
       "slotNPC": "NPC",
       "claim": "Take this slot (act now)",
-      "cannotClaim": "This combatant cannot take the current slot (other side, or already acted this round)."
+      "cannotClaim": "This combatant cannot take the current slot (other side, or already acted this round).",
+      "quick": "Quick Reflexes: strain",
+      "quickHint": "Suffer as much strain as successes added (up to Quick Reflexes rank). Rivals and minions suffer wounds instead.",
+      "quickApplied": "Quick Reflexes: +{n} successes",
+      "noVehicle": "{name} is a starship or vehicle: it has no initiative. Add its crew (pilot, gunners…) to the combat; each acts in their own slot (chapter VII)."
     }
   }
 }

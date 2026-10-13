@@ -37,7 +37,9 @@ https://github.com/tomjdr4-hub/star-wars-ffg/releases/latest/download/system.jso
   - les résultats forment des emplacements PJ et PNJ, classés par succès puis avantages (égalité : PJ d'abord) ;
   - à chaque emplacement, un combattant du même camp qui n'a pas encore agi peut le prendre (bouton main dans le
     tracker) ; le combattant prévu garde l'emplacement libéré ;
-  - le tracker affiche l'initiative en succès et avantages.
+  - le tracker affiche l'initiative en succès et avantages ;
+  - Réaction éclair : stress subi contre des succès d'initiative, choisi dans la fenêtre ;
+  - les vaisseaux n'ont pas d'initiative : ce sont les membres d'équipage qui sont ajoutés au combat (chapitre VII).
 - **Réserve de Destin** partagée :
   - les joueurs retournent un point lumineux, le MJ un point obscur ;
   - génération en début de session avec les effets de Moralité.
