@@ -1,6 +1,5 @@
 import { SKILLS, SYSTEM_ID } from "../config.mjs";
 import { DicePool } from "../dice/pool.mjs";
-import { NarrativeRoll } from "../dice/roll.mjs";
 import { RollDialog, rollPool } from "../apps/roll-dialog.mjs";
 
 export class SWActor extends Actor {
@@ -109,15 +108,3 @@ export class SWActor extends Actor {
     return this.type === "minion";
   }
 }
-
-/** Initiative : test de Vigilance (ou de Calme si le combattant est prêt), classé par succès puis avantages. */
-export class SWCombatant extends Combatant {
-  /** @override */
-  getInitiativeRoll(formula) {
-    if ( !this.actor ) return super.getInitiativeRoll(formula);
-    const skill = game.settings.get(SYSTEM_ID, "initiativeSkill");
-    const pool = DicePool.fromSkill(this.actor, skill, { difficulty: 0 }).applyRemovals();
-    return new NarrativeRoll(pool.toFormula(), {}, { flavor: game.i18n.localize("SWFFG.Roll.initiative"), skill });
-  }
-}
-

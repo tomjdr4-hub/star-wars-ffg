@@ -403,8 +403,8 @@
       "useFacesInChat": "Afficher le détail des dés dans le chat",
       "triggerMorality": "Moralité déclenchée (règle optionnelle)",
       "triggerMoralityHint": "F&D p. 323 : au début de session, le PJ dont la Moralité est la plus proche du d100 voit sa Moralité déclenchée (gain ou perte doublé en fin de session).",
-      "initiativeSkill": "Compétence d'initiative par défaut",
-      "initiativeSkillHint": "Vigilance si les combattants sont pris au dépourvu, Calme s'ils s'attendaient au combat (chapitre VI)."
+      "initiativeSkill": "Compétence d'initiative proposée par défaut",
+      "initiativeSkillHint": "Présélection de la fenêtre d'initiative. Le choix se fait à chaque jet : Calme si le combattant s'attendait au combat, Vigilance s'il est pris au dépourvu (chapitre VI)."
     },
     "Notify": {
       "noSkill": "Compétence inconnue : {skill}.",
@@ -423,6 +423,12 @@
       "applied": "{species} appliqué à {actor}.",
       "tooMany": "Choisissez exactement {count} compétence(s).",
       "setup": "Réglages de création (rangs, choix, talents)"
+    },
+    "Initiative": {
+      "title": "Initiative : Vigilance ou Calme ?",
+      "hint": "Calme si le personnage s'attendait au combat, Vigilance s'il est pris au dépourvu.",
+      "allVigilance": "Tous en Vigilance",
+      "allCool": "Tous en Calme"
     }
   }
 }

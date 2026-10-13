@@ -404,7 +404,7 @@
       "triggerMorality": "Triggered Morality (optional rule)",
       "triggerMoralityHint": "F&D p. 323: at session start, the PC whose Morality is closest to the d100 has their Morality triggered (doubled change at session end).",
       "initiativeSkill": "Default initiative skill",
-      "initiativeSkillHint": "Vigilance when combat is a surprise, Cool when expected (chapter VI)."
+      "initiativeSkillHint": "Preselected in the initiative window. The choice is made at each roll: Cool if expected, Vigilance if surprised (chapter VI)."
     },
     "Notify": {
       "noSkill": "Unknown skill: {skill}.",
@@ -423,6 +423,12 @@
       "applied": "{species} applied to {actor}.",
       "tooMany": "Choose exactly {count} skill(s).",
       "setup": "Creation settings (ranks, choices, talents)"
+    },
+    "Initiative": {
+      "title": "Initiative: Vigilance or Cool?",
+      "hint": "Cool if the character expected the fight, Vigilance if caught by surprise.",
+      "allVigilance": "All Vigilance",
+      "allCool": "All Cool"
     }
   }
 }

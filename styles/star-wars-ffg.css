@@ -287,3 +287,9 @@
 .swffg-sheet .tree-cell.active { border-left: 5px solid #8b1d22; }
 .swffg-sheet .tree-cell .fa-jedi { color: var(--swffg-accent); }
 .swffg-symbol.force-point { color: #8a8a8a; }
+
+/* Fenêtre de choix de l'initiative */
+.star-wars-ffg.initiative-dialog .swffg-init-all { display: flex; gap: 6px; margin-bottom: 6px; }
+.star-wars-ffg.initiative-dialog .swffg-init-list { display: flex; flex-direction: column; gap: 4px; max-height: 400px; overflow-y: auto; }
+.star-wars-ffg.initiative-dialog .swffg-init-row { display: grid; grid-template-columns: 28px 1fr 150px; gap: 8px; align-items: center; }
+.star-wars-ffg.initiative-dialog .swffg-init-row img { border: none; }

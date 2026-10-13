@@ -11,7 +11,8 @@ import {
   ArmorData, AttachmentData, CareerData, CriticalData, ForcePowerData, GearData, SpecializationData, SpeciesData,
   TalentData, WeaponData
 } from "./module/data/item-models.mjs";
-import { SWActor, SWCombatant } from "./module/documents/actor.mjs";
+import { SWActor } from "./module/documents/actor.mjs";
+import { SWCombat, SWCombatant } from "./module/documents/combat.mjs";
 import { AdversarySheet, CharacterSheet, VehicleSheet } from "./module/sheets/actor-sheets.mjs";
 import { SWItemSheet } from "./module/sheets/item-sheet.mjs";
 import { RollDialog, rollPool } from "./module/apps/roll-dialog.mjs";
@@ -62,6 +63,7 @@ Hooks.once("init", () => {
   };
 
   // Initiative : test de Vigilance ou de Calme, classé par succès puis avantages nets (voir SWCombatant).
+  CONFIG.Combat.documentClass = SWCombat;
   CONFIG.Combatant.documentClass = SWCombatant;
   CONFIG.Combat.initiative = { formula: "0", decimals: 2 };
 
