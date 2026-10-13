@@ -1,0 +1,185 @@
+<div class="swffg-sheet item-sheet">
+  <header class="sheet-header">
+    <img class="portrait small" src="{{item.img}}" alt="{{item.name}}" data-action="editImage" data-edit="img">
+    <div class="header-main">
+      <input class="actor-name" type="text" name="name" value="{{item.name}}">
+      <div class="identity">
+        <span class="badge">{{localize (concat "TYPES.Item." item.type)}}</span>
+        <label class="inline">{{localize "SWFFG.Book.label"}}
+          <select name="system.source.book">{{selectOptions bookChoices selected=system.source.book localize=true}}</select>
+        </label>
+        <label class="inline">p. <input class="tiny" type="text" name="system.source.page" value="{{system.source.page}}"></label>
+      </div>
+    </div>
+  </header>
+
+  <div class="sheet-body">
+    <div class="details-grid">
+      {{#if isType.weapon}}
+      <label>{{localize "SWFFG.Item.skill"}} <select name="system.skill">{{selectOptions skillChoices selected=system.skill localize=true}}</select></label>
+      <label>{{localize "SWFFG.Item.damage"}} <input type="number" name="system.damage" value="{{system.damage}}" min="0"></label>
+      <label class="checkbox"><input type="checkbox" name="system.addBrawn" {{checked system.addBrawn}}> {{localize "SWFFG.Item.addBrawn"}}</label>
+      <label>{{localize "SWFFG.Item.crit"}} <input type="number" name="system.crit" value="{{system.crit}}" min="0"></label>
+      <label>{{localize "SWFFG.Item.range"}} <select name="system.range">{{selectOptions rangeChoices selected=system.range localize=true}}</select></label>
+      <label>{{localize "SWFFG.Sheet.hardpoints"}} <input type="number" name="system.hardpoints" value="{{system.hardpoints}}" min="0"></label>
+      <label class="checkbox"><input type="checkbox" name="system.vehicle.enabled" {{checked system.vehicle.enabled}}> {{localize "SWFFG.Item.vehicleWeapon"}}</label>
+      {{#if system.vehicle.enabled}}
+      <label>{{localize "SWFFG.Sheet.firingArc"}} <input type="text" name="system.vehicle.firingArc" value="{{system.vehicle.firingArc}}"></label>
+      {{/if}}
+      {{/if}}
+
+      {{#if isType.armor}}
+      <label>{{localize "SWFFG.Item.defense"}} <input type="number" name="system.defense" value="{{system.defense}}" min="0"></label>
+      <label>{{localize "SWFFG.Item.soak"}} <input type="number" name="system.soak" value="{{system.soak}}" min="0"></label>
+      <label>{{localize "SWFFG.Sheet.hardpoints"}} <input type="number" name="system.hardpoints" value="{{system.hardpoints}}" min="0"></label>
+      {{/if}}
+
+      {{#if isType.attachment}}
+      <label>{{localize "SWFFG.Sheet.type"}} <select name="system.category">{{selectOptions (object weapon="TYPES.Item.weapon" armor="TYPES.Item.armor" vehicle="TYPES.Actor.vehicle" lightsaber="SWFFG.Skill.lightsaber") selected=system.category localize=true}}</select></label>
+      <label>{{localize "SWFFG.Sheet.hardpoints"}} <input type="number" name="system.hardpoints" value="{{system.hardpoints}}" min="0"></label>
+      <label class="wide">{{localize "SWFFG.Item.modifiers"}} <input type="text" name="system.baseModifiers" value="{{system.baseModifiers}}"></label>
+      <label class="wide">{{localize "SWFFG.Item.mods"}} <input type="text" name="system.modOptions" value="{{system.modOptions}}"></label>
+      {{/if}}
+
+      {{#if hasCommerce}}
+      <label>{{localize "SWFFG.Sheet.price"}} <input type="number" name="system.price" value="{{system.price}}" min="0"></label>
+      <label>{{localize "SWFFG.Sheet.rarity"}} <input type="number" name="system.rarity" value="{{system.rarity}}" min="0" max="10"></label>
+      <label class="checkbox"><input type="checkbox" name="system.restricted" {{checked system.restricted}}> {{localize "SWFFG.Sheet.restricted"}}</label>
+      <label>{{localize "SWFFG.Item.encumbrance"}} <input type="number" name="system.encumbrance" value="{{system.encumbrance}}" min="0"></label>
+      <label>{{localize "SWFFG.Sheet.quantity"}} <input type="number" name="system.quantity" value="{{system.quantity}}" min="0"></label>
+      {{/if}}
+
+      {{#if isType.talent}}
+      <label>{{localize "SWFFG.Activation.label"}} <select name="system.activation">{{selectOptions activationChoices selected=system.activation localize=true}}</select></label>
+      <label class="checkbox"><input type="checkbox" name="system.ranked" {{checked system.ranked}}> {{localize "SWFFG.Item.ranked"}}</label>
+      {{#if system.ranked}}<label>{{localize "SWFFG.Item.rank"}} <input type="number" name="system.rank" value="{{system.rank}}" min="0"></label>{{/if}}
+      <label class="checkbox"><input type="checkbox" name="system.forceTalent" {{checked system.forceTalent}}> {{localize "SWFFG.Item.forceTalent"}}</label>
+      <label class="wide">{{localize "SWFFG.Sheet.tree"}} <input type="text" name="system.trees" value="{{system.trees}}"></label>
+      {{/if}}
+
+      {{#if isType.species}}
+      {{#each config.CHARACTERISTICS as |c key|}}
+      <label>{{localize c.label}} <input type="number" name="system.characteristics.{{key}}" value="{{lookup @root.system.characteristics key}}" min="1" max="5"></label>
+      {{/each}}
+      <label>{{localize "SWFFG.Item.woundBase"}} <input type="number" name="system.woundBase" value="{{system.woundBase}}" min="0"></label>
+      <label>{{localize "SWFFG.Item.strainBase"}} <input type="number" name="system.strainBase" value="{{system.strainBase}}" min="0"></label>
+      <label>{{localize "SWFFG.Item.startingXp"}} <input type="number" name="system.startingXp" value="{{system.startingXp}}" min="0"></label>
+      <label class="wide">{{localize "SWFFG.Item.abilities"}} <input type="text" name="system.abilities" value="{{system.abilities}}"></label>
+      {{/if}}
+
+      {{#if isType.career}}
+      <label>{{localize "SWFFG.Item.forceRating"}} <input type="number" name="system.forceRating" value="{{system.forceRating}}" min="0"></label>
+      <label class="wide">{{localize "SWFFG.Sheet.specializations"}} <input type="text" name="system.specializations" value="{{system.specializations}}"></label>
+      {{/if}}
+
+      {{#if isType.specialization}}
+      <label>{{localize "SWFFG.Sheet.career"}} <input type="text" name="system.career" value="{{system.career}}"></label>
+      <label class="checkbox"><input type="checkbox" name="system.universal" {{checked system.universal}}> {{localize "SWFFG.Item.universal"}}</label>
+      <label>{{localize "SWFFG.Item.forceRating"}} <input type="number" name="system.forceRating" value="{{system.forceRating}}" min="0"></label>
+      {{/if}}
+
+      {{#if isType.forcepower}}
+      <label>{{localize "SWFFG.Item.minForceRating"}} <input type="number" name="system.minForceRating" value="{{system.minForceRating}}" min="0"></label>
+      <label>{{localize "SWFFG.Sheet.cost"}} <input type="number" name="system.baseCost" value="{{system.baseCost}}" min="0"></label>
+      <label class="checkbox"><input type="checkbox" name="system.learned" {{checked system.learned}}> {{localize "SWFFG.Sheet.learned"}}</label>
+      <label class="wide">{{localize "SWFFG.ForceUpgrade.base"}} <input type="text" name="system.baseText" value="{{system.baseText}}"></label>
+      {{/if}}
+
+      {{#if isType.critical}}
+      <label>{{localize "SWFFG.Severity.label"}} <select name="system.severity" data-dtype="Number">{{selectOptions severityChoices selected=system.severity localize=true}}</select></label>
+      <label>d100 <input type="text" name="system.roll" value="{{system.roll}}" placeholder="01-05"></label>
+      {{/if}}
+    </div>
+
+    {{#if careerSkillBoxes.length}}
+    <h3>{{localize (ifThen isType.career "SWFFG.Item.careerSkills" "SWFFG.Item.bonusCareerSkills")}} ({{system.careerSkills.length}})</h3>
+    <div class="checkbox-grid">
+      {{#each careerSkillBoxes as |b|}}
+      <label><input type="checkbox" data-career-skill="{{b.key}}" {{checked b.checked}} {{#unless @root.editable}}disabled{{/unless}}> {{localize b.label}}</label>
+      {{/each}}
+    </div>
+    {{/if}}
+
+    {{#if isType.weapon}}
+    <h3>{{localize "SWFFG.Quality.label"}}
+      {{#if editable}}<button type="button" class="icon" data-action="arrayAdd" data-array="qualities"><i class="fa-solid fa-plus"></i></button>{{/if}}
+    </h3>
+    <table class="swffg-table entries">
+      <tbody>
+        {{#each qualities as |q|}}
+        <tr>
+          <td><select data-array="qualities" data-index="{{q.index}}" data-field="key">{{selectOptions @root.qualityChoices selected=q.key localize=true}}</select></td>
+          <td class="num">{{#if q.ranked}}<input type="number" data-array="qualities" data-index="{{q.index}}" data-field="rank" value="{{q.rank}}" min="0">{{/if}}</td>
+          <td>{{#if @root.editable}}<a data-action="arrayRemove" data-array="qualities" data-index="{{q.index}}"><i class="fa-solid fa-trash"></i></a>{{/if}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+    {{/if}}
+
+    {{#if isType.specialization}}
+    <h3>{{localize "SWFFG.Sheet.tree"}}</h3>
+    <p class="hint">Glissez un talent depuis un compendium sur une case, ou saisissez son nom. Cliquez sur les traits pour relier les cases.</p>
+    <div class="tree-grid editor">
+      {{#each treeRows as |row|}}
+      <div class="tree-row">
+        {{#each row.cells as |cell|}}
+        <div class="tree-cell {{#if cell.linkRight}}link-right{{/if}} {{#if cell.linkDown}}link-down{{/if}}" data-index="{{cell.index}}">
+          <input type="text" data-array="talents" data-index="{{cell.index}}" data-field="name" value="{{cell.name}}" placeholder="—">
+          <select data-array="talents" data-index="{{cell.index}}" data-field="activation">{{selectOptions @root.activationChoices selected=cell.activation localize=true}}</select>
+          <label class="small"><input type="checkbox" data-array="talents" data-index="{{cell.index}}" data-field="ranked" {{checked cell.ranked}}> {{localize "SWFFG.Item.ranked"}}</label>
+          <span class="cost">{{row.cost}}</span>
+          {{#unless cell.last}}<a class="link-toggle right {{#if cell.linkRight}}on{{/if}}" data-action="toggleLink" data-link="right" data-index="{{cell.index}}"></a>{{/unless}}
+          {{#unless cell.bottom}}<a class="link-toggle down {{#if cell.linkDown}}on{{/if}}" data-action="toggleLink" data-link="down" data-index="{{cell.index}}"></a>{{/unless}}
+        </div>
+        {{/each}}
+      </div>
+      {{/each}}
+    </div>
+    {{/if}}
+
+    {{#if isType.forcepower}}
+    <h3>{{localize "SWFFG.Item.upgrades"}}
+      {{#if editable}}<button type="button" class="icon" data-action="arrayAdd" data-array="upgrades"><i class="fa-solid fa-plus"></i></button>{{/if}}
+    </h3>
+    <table class="swffg-table entries upgrades">
+      <thead><tr><th>{{localize "SWFFG.Sheet.type"}}</th><th>{{localize "SWFFG.Sheet.description"}}</th><th>{{localize "SWFFG.Sheet.cost"}}</th><th>R</th><th>C</th><th>L</th><th></th><th></th></tr></thead>
+      <tbody>
+        {{#each upgrades as |u|}}
+        <tr>
+          <td><select data-array="upgrades" data-index="{{u.index}}" data-field="type">{{selectOptions @root.upgradeChoices selected=u.type localize=true}}</select></td>
+          <td><input type="text" data-array="upgrades" data-index="{{u.index}}" data-field="text" value="{{u.text}}"></td>
+          <td class="num"><input type="number" data-array="upgrades" data-index="{{u.index}}" data-field="cost" value="{{u.cost}}" min="0"></td>
+          <td class="num"><input type="number" data-array="upgrades" data-index="{{u.index}}" data-field="row" value="{{u.row}}" min="1" max="6"></td>
+          <td class="num"><input type="number" data-array="upgrades" data-index="{{u.index}}" data-field="col" value="{{u.col}}" min="1" max="4"></td>
+          <td class="num"><input type="number" data-array="upgrades" data-index="{{u.index}}" data-field="width" value="{{u.width}}" min="1" max="4"></td>
+          <td><input type="checkbox" data-array="upgrades" data-index="{{u.index}}" data-field="learned" {{checked u.learned}} data-tooltip="{{localize 'SWFFG.Sheet.learned'}}"></td>
+          <td>{{#if @root.editable}}<a data-action="arrayRemove" data-array="upgrades" data-index="{{u.index}}"><i class="fa-solid fa-trash"></i></a>{{/if}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+    {{/if}}
+
+    {{#if hasModifiers}}
+    <h3>{{localize "SWFFG.Item.modifiers"}}
+      {{#if editable}}<button type="button" class="icon" data-action="arrayAdd" data-array="modifiers"><i class="fa-solid fa-plus"></i></button>{{/if}}
+    </h3>
+    <table class="swffg-table entries">
+      <tbody>
+        {{#each modifiers as |m|}}
+        <tr>
+          <td><select data-array="modifiers" data-index="{{m.index}}" data-field="type">{{selectOptions @root.modifierChoices selected=m.type localize=true}}</select></td>
+          <td>{{#if m.keyChoices}}<select data-array="modifiers" data-index="{{m.index}}" data-field="key">{{selectOptions m.keyChoices selected=m.key localize=true blank="—"}}</select>{{/if}}</td>
+          <td class="num"><input type="number" data-array="modifiers" data-index="{{m.index}}" data-field="value" value="{{m.value}}"></td>
+          <td>{{#if @root.editable}}<a data-action="arrayRemove" data-array="modifiers" data-index="{{m.index}}"><i class="fa-solid fa-trash"></i></a>{{/if}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+    {{/if}}
+
+    <h3>{{localize "SWFFG.Sheet.description"}}</h3>
+    {{> "swffg-editor" field="description" value=system.description enriched=enrichedDescription uuid=item.uuid editable=editable}}
+  </div>
+</div>

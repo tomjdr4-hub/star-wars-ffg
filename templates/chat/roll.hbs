@@ -1,0 +1,37 @@
+<div class="swffg-roll {{#if isForce}}force{{/if}}">
+  {{#if weapon}}<div class="weapon-line"><strong>{{weapon.name}}</strong>{{#if weapon.qualities}} <span class="small">— {{weapon.qualities}}</span>{{/if}}</div>{{/if}}
+  {{#unless isPrivate}}
+  <div class="faces">
+    {{#each faces as |f|}}<span class="face die-{{f.key}}">{{#each f.symbols as |s|}}{{swffgSymbol s}}{{/each}}</span>{{/each}}
+  </div>
+  <div class="net-symbols">
+    {{#each symbolsList as |s|}}<span class="net-symbol {{s.key}}">{{#each s.icons as |i|}}{{swffgSymbol i}}{{/each}}{{#if (gt s.count 12)}} ×{{s.count}}{{/if}}</span>{{/each}}
+  </div>
+  {{#if showOutcome}}
+  <div class="outcome {{#if net.succeeded}}success{{else}}failure{{/if}}">
+    {{#if net.succeeded}}{{localize "SWFFG.Result.succeeded"}}{{else}}{{localize "SWFFG.Result.failed"}}{{/if}}
+    {{#if net.success}} · {{net.success}} {{swffgSymbol "success"}}{{/if}}
+    {{#if net.advantage}} · {{net.advantage}} {{swffgSymbol "advantage"}}{{/if}}
+    {{#if net.threat}} · {{net.threat}} {{swffgSymbol "threat"}}{{/if}}
+    {{#if net.triumph}} · {{net.triumph}} {{swffgSymbol "triumph"}}{{/if}}
+    {{#if net.despair}} · {{net.despair}} {{swffgSymbol "despair"}}{{/if}}
+  </div>
+  {{/if}}
+  {{#if isForce}}
+  <div class="outcome force">
+    {{localize "SWFFG.Roll.forcePoints"}} : <strong>{{forcePoints}}</strong>
+    {{#if darkSide}}({{localize "SWFFG.Result.dark"}}){{else}}({{localize "SWFFG.Result.light"}}){{/if}}
+  </div>
+  {{/if}}
+  {{#if weapon}}
+  {{#if weapon.damage}}
+  <div class="damage-line">
+    <i class="fa-solid fa-burst"></i> {{localize "SWFFG.Roll.damage"}} : <strong>{{weapon.damage}}</strong>
+    {{#if weapon.critReady}} · <span class="crit">{{localize "SWFFG.Roll.critical"}}</span>{{else}}{{#if weapon.crit}} · <span class="small">{{localize "SWFFG.Item.crit"}} {{weapon.crit}}</span>{{/if}}{{/if}}
+  </div>
+  {{/if}}
+  {{/if}}
+  {{else}}
+  <div class="outcome">???</div>
+  {{/unless}}
+</div>

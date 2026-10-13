@@ -1,0 +1,83 @@
+<div class="swffg-sheet vehicle">
+  <header class="sheet-header">
+    <img class="portrait" src="{{actor.img}}" alt="{{actor.name}}" data-action="editImage" data-edit="img">
+    <div class="header-main">
+      <input class="actor-name" type="text" name="name" value="{{actor.name}}">
+      <div class="header-stats">
+        <label>{{localize "SWFFG.Sheet.silhouette"}} <input type="number" name="system.silhouette" value="{{system.silhouette}}" min="0"></label>
+        <label>{{localize "SWFFG.Sheet.speed"}} <input type="number" name="system.speed.value" value="{{system.speed.value}}" min="0"> / <input type="number" name="system.speed.max" value="{{system.speed.max}}" min="0"></label>
+        <label>{{localize "SWFFG.Sheet.handling"}} <input type="number" name="system.handling" value="{{system.handling}}"></label>
+      </div>
+    </div>
+  </header>
+
+  <nav class="sheet-tabs tabs">
+    {{#each tabs as |tab|}}
+    <a data-action="tab" data-group="{{tab.group}}" data-tab="{{tab.id}}" class="{{tab.cssClass}}">{{localize tab.label}}</a>
+    {{/each}}
+  </nav>
+
+  <section class="tab {{tabs.main.cssClass}}" data-group="primary" data-tab="main">
+    <div class="derived">
+      <div class="derived-box">
+        <h4>{{localize "SWFFG.Sheet.armor"}}</h4>
+        <input class="big" type="number" name="system.armor" value="{{system.armor}}" min="0">
+      </div>
+      <div class="derived-box wounds">
+        <h4>{{localize "SWFFG.Sheet.hullTrauma"}}</h4>
+        <div class="track">
+          <a data-action="adjust" data-path="system.hullTrauma.value" data-delta="-1"><i class="fa-solid fa-minus"></i></a>
+          <span class="value">{{system.hullTrauma.value}}</span> /
+          <input type="number" name="system.hullTrauma.max" value="{{system.hullTrauma.max}}" min="0">
+          <a data-action="adjust" data-path="system.hullTrauma.value" data-delta="1"><i class="fa-solid fa-plus"></i></a>
+        </div>
+      </div>
+      <div class="derived-box strain">
+        <h4>{{localize "SWFFG.Sheet.systemStrain"}}</h4>
+        <div class="track">
+          <a data-action="adjust" data-path="system.systemStrain.value" data-delta="-1"><i class="fa-solid fa-minus"></i></a>
+          <span class="value">{{system.systemStrain.value}}</span> /
+          <input type="number" name="system.systemStrain.max" value="{{system.systemStrain.max}}" min="0">
+          <a data-action="adjust" data-path="system.systemStrain.value" data-delta="1"><i class="fa-solid fa-plus"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="vehicle-defense">
+      <h4>{{localize "SWFFG.Sheet.defense"}}</h4>
+      <div class="defense-ship">
+        <label class="fore">{{localize "SWFFG.Sheet.defenseFore"}} <input type="number" name="system.defense.fore" value="{{system.defense.fore}}" min="0"></label>
+        <label class="port">{{localize "SWFFG.Sheet.defensePort"}} <input type="number" name="system.defense.port" value="{{system.defense.port}}" min="0"></label>
+        <i class="fa-solid fa-jet-fighter-up ship-icon"></i>
+        <label class="starboard">{{localize "SWFFG.Sheet.defenseStarboard"}} <input type="number" name="system.defense.starboard" value="{{system.defense.starboard}}" min="0"></label>
+        <label class="aft">{{localize "SWFFG.Sheet.defenseAft"}} <input type="number" name="system.defense.aft" value="{{system.defense.aft}}" min="0"></label>
+      </div>
+    </div>
+
+    <div class="details-grid">
+      <label>{{localize "SWFFG.Sheet.sensorRange"}} <select name="system.sensorRange">{{selectOptions sensorChoices selected=system.sensorRange localize=true}}</select></label>
+      <label>{{localize "SWFFG.Sheet.crew"}} <input type="text" name="system.crew" value="{{system.crew}}"></label>
+      <label>{{localize "SWFFG.Sheet.passengers"}} <input type="number" name="system.passengers" value="{{system.passengers}}" min="0"></label>
+      <label>{{localize "SWFFG.Sheet.cargo"}} <input type="number" name="system.encumbrance.max" value="{{system.encumbrance.max}}" min="0"></label>
+      <label>{{localize "SWFFG.Sheet.hyperdrive"}} <input type="text" name="system.hyperdrive.primary" value="{{system.hyperdrive.primary}}" placeholder="Classe 2"></label>
+      <label>{{localize "SWFFG.Sheet.hyperdrive"}} (secours) <input type="text" name="system.hyperdrive.backup" value="{{system.hyperdrive.backup}}"></label>
+      <label class="checkbox"><input type="checkbox" name="system.navicomputer" {{checked system.navicomputer}}> {{localize "SWFFG.Sheet.navicomputer"}}</label>
+      <label>{{localize "SWFFG.Sheet.consumables"}} <input type="text" name="system.consumables" value="{{system.consumables}}"></label>
+      <label>{{localize "SWFFG.Sheet.hardpoints"}} <input type="number" name="system.hardpoints" value="{{system.hardpoints}}" min="0"></label>
+      <label>{{localize "SWFFG.Sheet.price"}} <input type="number" name="system.price" value="{{system.price}}" min="0"></label>
+      <label>{{localize "SWFFG.Sheet.rarity"}} <input type="number" name="system.rarity" value="{{system.rarity}}" min="0"></label>
+      <label class="checkbox"><input type="checkbox" name="system.restricted" {{checked system.restricted}}> {{localize "SWFFG.Sheet.restricted"}}</label>
+    </div>
+  </section>
+
+  <section class="tab {{tabs.gear.cssClass}}" data-group="primary" data-tab="gear">
+    {{> "swffg-gear"}}
+  </section>
+
+  <section class="tab {{tabs.biography.cssClass}}" data-group="primary" data-tab="biography">
+    <h3>{{localize "SWFFG.Sheet.description"}}</h3>
+    {{> "swffg-editor" field="description" value=system.description enriched=enriched.description uuid=actor.uuid editable=editable}}
+    <h3>{{localize "SWFFG.Sheet.notes"}}</h3>
+    {{> "swffg-editor" field="notes" value=system.notes enriched=enriched.notes uuid=actor.uuid editable=editable}}
+  </section>
+</div>

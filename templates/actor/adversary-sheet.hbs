@@ -1,0 +1,120 @@
+<div class="swffg-sheet adversary">
+  <header class="sheet-header">
+    <img class="portrait" src="{{actor.img}}" alt="{{actor.name}}" data-action="editImage" data-edit="img">
+    <div class="header-main">
+      <input class="actor-name" type="text" name="name" value="{{actor.name}}">
+      <div class="identity"><span class="badge">{{localize (concat "TYPES.Actor." actor.type)}}</span></div>
+    </div>
+  </header>
+
+  <nav class="sheet-tabs tabs">
+    {{#each tabs as |tab|}}
+    <a data-action="tab" data-group="{{tab.group}}" data-tab="{{tab.id}}" class="{{tab.cssClass}}">{{localize tab.label}}</a>
+    {{/each}}
+  </nav>
+
+  <section class="tab {{tabs.main.cssClass}}" data-group="primary" data-tab="main">
+    {{> "swffg-characteristics"}}
+
+    <div class="derived">
+      {{#if isMinion}}
+      <div class="derived-box">
+        <h4>{{localize "SWFFG.Sheet.minionCount"}}</h4>
+        <div class="split">
+          <span class="big">{{system.alive}}</span> /
+          <input type="number" name="system.quantity" value="{{system.quantity}}" min="1">
+        </div>
+      </div>
+      <div class="derived-box wounds">
+        <h4>{{localize "SWFFG.Sheet.wounds"}}</h4>
+        <div class="track">
+          <a data-action="adjust" data-path="system.wounds.value" data-delta="-1"><i class="fa-solid fa-minus"></i></a>
+          <span class="value">{{system.wounds.value}}</span> / {{system.wounds.max}}
+          <a data-action="adjust" data-path="system.wounds.value" data-delta="1"><i class="fa-solid fa-plus"></i></a>
+        </div>
+        <label class="small">{{localize "SWFFG.Sheet.woundThreshold"}} / 1 <input type="number" name="system.woundsPerMinion" value="{{system.woundsPerMinion}}" min="1"></label>
+      </div>
+      {{else}}
+      <div class="derived-box wounds">
+        <h4>{{localize "SWFFG.Sheet.wounds"}}</h4>
+        <div class="track">
+          <a data-action="adjust" data-path="system.wounds.value" data-delta="-1"><i class="fa-solid fa-minus"></i></a>
+          <span class="value">{{system.wounds.value}}</span> /
+          <input type="number" name="system.wounds.max" value="{{system.wounds.max}}" min="0">
+          <a data-action="adjust" data-path="system.wounds.value" data-delta="1"><i class="fa-solid fa-plus"></i></a>
+        </div>
+      </div>
+      {{#if isNemesis}}
+      <div class="derived-box strain">
+        <h4>{{localize "SWFFG.Sheet.strain"}}</h4>
+        <div class="track">
+          <a data-action="adjust" data-path="system.strain.value" data-delta="-1"><i class="fa-solid fa-minus"></i></a>
+          <span class="value">{{system.strain.value}}</span> /
+          <input type="number" name="system.strain.max" value="{{system.strain.max}}" min="0">
+          <a data-action="adjust" data-path="system.strain.value" data-delta="1"><i class="fa-solid fa-plus"></i></a>
+        </div>
+      </div>
+      {{/if}}
+      {{/if}}
+      <div class="derived-box">
+        <h4>{{localize "SWFFG.Sheet.soak"}}</h4>
+        <input class="big" type="number" name="system.soak" value="{{system.soak}}" min="0">
+      </div>
+      <div class="derived-box">
+        <h4>{{localize "SWFFG.Sheet.defense"}}</h4>
+        <div class="split">
+          <label data-tooltip="{{localize 'SWFFG.Sheet.defenseMelee'}}"><i class="fa-solid fa-hand-fist"></i> <input type="number" name="system.defense.melee" value="{{system.defense.melee}}" min="0"></label>
+          <label data-tooltip="{{localize 'SWFFG.Sheet.defenseRanged'}}"><i class="fa-solid fa-crosshairs"></i> <input type="number" name="system.defense.ranged" value="{{system.defense.ranged}}" min="0"></label>
+        </div>
+      </div>
+      {{#unless isMinion}}
+      <div class="derived-box force">
+        <h4>{{localize "SWFFG.Sheet.forceRating"}}</h4>
+        <input class="big" type="number" name="system.forceRating.value" value="{{system.forceRating.value}}" min="0">
+      </div>
+      {{/unless}}
+    </div>
+
+    {{> "swffg-skills"}}
+
+    {{#if isMinion}}
+    {{#if editable}}
+    <details class="group-skills">
+      <summary>{{localize "SWFFG.Sheet.groupSkill"}}</summary>
+      <div class="checkbox-grid">
+        {{#each groupSkillChoices as |c|}}
+        <label><input type="checkbox" data-group-skill="{{c.key}}" {{checked c.checked}}> {{localize c.label}}</label>
+        {{/each}}
+      </div>
+    </details>
+    {{/if}}
+    {{/if}}
+
+    <h3>{{localize "TYPES.Item.talent"}}
+      {{#if editable}}<button type="button" class="icon" data-action="itemCreate" data-type="talent"><i class="fa-solid fa-plus"></i></button>{{/if}}
+    </h3>
+    <ul class="item-list">
+      {{#each items.talent as |i|}}
+      <li data-item-id="{{i.id}}"><a data-action="itemChat">{{i.name}}{{#if i.system.ranked}} {{i.system.rank}}{{/if}}</a>
+        <a data-action="itemEdit"><i class="fa-solid fa-pen"></i></a>
+        {{#if @root.editable}}<a data-action="itemDelete"><i class="fa-solid fa-trash"></i></a>{{/if}}</li>
+      {{/each}}
+      {{#each items.forcepower as |i|}}
+      <li data-item-id="{{i.id}}"><i class="fa-solid fa-jedi"></i> <a data-action="rollForce">{{i.name}}</a>
+        <a data-action="itemEdit"><i class="fa-solid fa-pen"></i></a>
+        {{#if @root.editable}}<a data-action="itemDelete"><i class="fa-solid fa-trash"></i></a>{{/if}}</li>
+      {{/each}}
+    </ul>
+
+    <h3>{{localize "SWFFG.Item.abilities"}}</h3>
+    {{> "swffg-editor" field="abilities" value=system.abilities enriched=enriched.abilities uuid=actor.uuid editable=editable}}
+  </section>
+
+  <section class="tab {{tabs.gear.cssClass}}" data-group="primary" data-tab="gear">
+    {{> "swffg-gear"}}
+  </section>
+
+  <section class="tab {{tabs.biography.cssClass}}" data-group="primary" data-tab="biography">
+    {{> "swffg-editor" field="notes" value=system.notes enriched=enriched.notes uuid=actor.uuid editable=editable}}
+  </section>
+</div>

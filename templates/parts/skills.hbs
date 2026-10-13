@@ -1,0 +1,34 @@
+<div class="skill-groups">
+  {{#each skillGroups as |group|}}
+  <div class="skill-group">
+    <h3>{{localize group.label}}</h3>
+    <table class="swffg-table skills">
+      <tbody>
+        {{#each group.skills as |s|}}
+        <tr class="{{#if s.isCareer}}career{{/if}}">
+          <td class="skill-name">
+            <a data-action="rollSkill" data-skill="{{s.key}}" data-tooltip="{{localize 'SWFFG.Roll.title'}}">{{localize s.label}}</a>
+            <span class="char-abbr">({{localize s.charAbbr}})</span>
+          </td>
+          {{#unless @root.isMinion}}
+          <td class="center" data-tooltip="{{localize 'SWFFG.Skill.career'}}">
+            {{#if @root.editable}}<input type="checkbox" name="system.skills.{{s.key}}.career" {{checked s.career}}>{{/if}}
+            {{#if s.isCareer}}<i class="fa-solid fa-star career-star"></i>{{/if}}
+          </td>
+          <td class="rank">
+            {{#if @root.editable}}<input type="number" name="system.skills.{{s.key}}.rank" value="{{s.rank}}" min="0" max="6">{{else}}{{s.total}}{{/if}}
+          </td>
+          {{#if @root.isCharacter}}
+          <td>{{#if @root.editable}}<button type="button" class="icon" data-action="buySkill" data-skill="{{s.key}}" data-tooltip="{{localize 'SWFFG.Sheet.buy'}}"><i class="fa-solid fa-plus"></i></button>{{/if}}</td>
+          {{/if}}
+          {{else}}
+          <td class="rank">{{#if s.isGroup}}{{s.total}}{{else}}—{{/if}}</td>
+          {{/unless}}
+          <td class="pool">{{#each s.icons as |k|}}{{swffgDie k}}{{/each}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+  {{/each}}
+</div>

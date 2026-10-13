@@ -1,0 +1,88 @@
+<div class="gear-section">
+  <h3>{{localize "TYPES.Item.weapon"}}
+    {{#if editable}}<button type="button" class="icon" data-action="itemCreate" data-type="weapon" data-tooltip="{{localize 'SWFFG.Sheet.add'}}"><i class="fa-solid fa-plus"></i></button>{{/if}}
+  </h3>
+  <table class="swffg-table items weapons">
+    <thead><tr>
+      <th></th><th>{{localize "SWFFG.Sheet.name"}}</th><th>{{localize "SWFFG.Item.skill"}}</th><th>{{localize "SWFFG.Item.damage"}}</th>
+      <th>{{localize "SWFFG.Item.crit"}}</th><th>{{localize "SWFFG.Item.range"}}</th><th>{{localize "SWFFG.Quality.label"}}</th><th></th>
+    </tr></thead>
+    <tbody>
+      {{#each items.weapon as |i|}}
+      <tr data-item-id="{{i.id}}">
+        <td><img src="{{i.img}}" class="item-img" data-action="itemChat"></td>
+        <td><a data-action="rollWeapon" data-tooltip="{{localize 'SWFFG.Roll.title'}}">{{i.name}}</a></td>
+        <td>{{localize i.skillLabel}}</td>
+        <td class="center">{{#if i.system.addBrawn}}+{{/if}}{{i.system.damage}}</td>
+        <td class="center">{{i.system.crit}}</td>
+        <td>{{localize i.rangeLabel}}</td>
+        <td class="small">{{i.qualities}}</td>
+        <td class="controls">
+          {{#unless @root.isVehicle}}<a data-action="itemToggle" data-field="equipped" class="{{#if i.system.equipped}}active{{/if}}" data-tooltip="{{localize 'SWFFG.Sheet.equipped'}}"><i class="fa-solid fa-hand-fist"></i></a>{{/unless}}
+          <a data-action="itemEdit"><i class="fa-solid fa-pen"></i></a>
+          {{#if @root.editable}}<a data-action="itemDelete"><i class="fa-solid fa-trash"></i></a>{{/if}}
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+  {{#unless isVehicle}}
+  <h3>{{localize "TYPES.Item.armor"}}
+    {{#if editable}}<button type="button" class="icon" data-action="itemCreate" data-type="armor"><i class="fa-solid fa-plus"></i></button>{{/if}}
+  </h3>
+  <table class="swffg-table items">
+    <thead><tr><th></th><th>{{localize "SWFFG.Sheet.name"}}</th><th>{{localize "SWFFG.Item.defense"}}</th><th>{{localize "SWFFG.Item.soak"}}</th><th>{{localize "SWFFG.Item.encumbrance"}}</th><th></th></tr></thead>
+    <tbody>
+      {{#each items.armor as |i|}}
+      <tr data-item-id="{{i.id}}">
+        <td><img src="{{i.img}}" class="item-img" data-action="itemChat"></td>
+        <td>{{i.name}}</td>
+        <td class="center">{{i.system.defense}}</td>
+        <td class="center">{{i.system.soak}}</td>
+        <td class="center">{{i.system.encumbrance}}</td>
+        <td class="controls">
+          <a data-action="itemToggle" data-field="equipped" class="{{#if i.system.equipped}}active{{/if}}" data-tooltip="{{localize 'SWFFG.Sheet.equipped'}}"><i class="fa-solid fa-shirt"></i></a>
+          <a data-action="itemEdit"><i class="fa-solid fa-pen"></i></a>
+          {{#if @root.editable}}<a data-action="itemDelete"><i class="fa-solid fa-trash"></i></a>{{/if}}
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+  <h3>{{localize "TYPES.Item.gear"}}
+    {{#if editable}}<button type="button" class="icon" data-action="itemCreate" data-type="gear"><i class="fa-solid fa-plus"></i></button>{{/if}}
+  </h3>
+  <table class="swffg-table items">
+    <thead><tr><th></th><th>{{localize "SWFFG.Sheet.name"}}</th><th>{{localize "SWFFG.Sheet.quantity"}}</th><th>{{localize "SWFFG.Item.encumbrance"}}</th><th></th></tr></thead>
+    <tbody>
+      {{#each items.gear as |i|}}
+      <tr data-item-id="{{i.id}}">
+        <td><img src="{{i.img}}" class="item-img" data-action="itemChat"></td>
+        <td>{{i.name}}</td>
+        <td class="center">{{#if @root.editable}}<input type="number" data-item-field="system.quantity" value="{{i.system.quantity}}" min="0">{{else}}{{i.system.quantity}}{{/if}}</td>
+        <td class="center">{{i.system.encumbrance}}</td>
+        <td class="controls">
+          <a data-action="itemToggle" data-field="carried" class="{{#if i.system.carried}}active{{/if}}" data-tooltip="{{localize 'SWFFG.Sheet.carried'}}"><i class="fa-solid fa-suitcase"></i></a>
+          <a data-action="itemEdit"><i class="fa-solid fa-pen"></i></a>
+          {{#if @root.editable}}<a data-action="itemDelete"><i class="fa-solid fa-trash"></i></a>{{/if}}
+        </td>
+      </tr>
+      {{/each}}
+      {{#each items.attachment as |i|}}
+      <tr data-item-id="{{i.id}}">
+        <td><img src="{{i.img}}" class="item-img" data-action="itemChat"></td>
+        <td>{{i.name}} <span class="small">({{localize "TYPES.Item.attachment"}})</span></td>
+        <td class="center">{{i.system.quantity}}</td>
+        <td class="center">{{i.system.encumbrance}}</td>
+        <td class="controls">
+          <a data-action="itemEdit"><i class="fa-solid fa-pen"></i></a>
+          {{#if @root.editable}}<a data-action="itemDelete"><i class="fa-solid fa-trash"></i></a>{{/if}}
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+  {{/unless}}
+</div>

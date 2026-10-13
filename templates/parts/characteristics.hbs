@@ -1,0 +1,13 @@
+<div class="characteristics">
+  {{#each characteristics as |c|}}
+  <div class="characteristic" data-tooltip="{{localize c.label}}">
+    <div class="char-circle">
+      {{#if @root.editable}}
+      <input type="number" name="system.characteristics.{{c.key}}.value" value="{{c.value}}" min="0" max="7">
+      {{else}}<span>{{c.total}}</span>{{/if}}
+    </div>
+    <label>{{localize c.label}}</label>
+    {{#if (ne c.total c.value)}}<span class="char-total" data-tooltip="{{localize 'SWFFG.Item.modifiers'}}">= {{c.total}}</span>{{/if}}
+  </div>
+  {{/each}}
+</div>

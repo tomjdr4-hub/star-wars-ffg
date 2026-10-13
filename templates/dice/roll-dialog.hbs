@@ -1,0 +1,58 @@
+<div class="roll-dialog-body">
+  <label class="flavor">{{localize "SWFFG.Roll.flavor"}} <input type="text" name="flavor" value="{{flavor}}"></label>
+
+  <div class="pool-preview">
+    {{#each dice as |d|}}{{#each d.icons as |k|}}{{swffgDie k}}{{/each}}{{/each}}
+  </div>
+
+  <table class="swffg-table dice-controls">
+    <tbody>
+      {{#each dice as |d|}}
+      <tr>
+        <td>{{swffgDie d.key}} {{localize d.label}}</td>
+        <td class="controls">
+          <a data-action="removeDie" data-die="{{d.key}}"><i class="fa-solid fa-minus"></i></a>
+          <span class="count">{{d.count}}</span>
+          <a data-action="addDie" data-die="{{d.key}}"><i class="fa-solid fa-plus"></i></a>
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+  <div class="upgrade-buttons">
+    <button type="button" data-action="upgrade" data-kind="ability"><i class="fa-solid fa-arrow-up"></i> {{localize "SWFFG.Roll.upgradeAbility"}}</button>
+    <button type="button" data-action="upgrade" data-kind="downAbility"><i class="fa-solid fa-arrow-down"></i> {{localize "SWFFG.Roll.downgradeAbility"}}</button>
+    <button type="button" data-action="upgrade" data-kind="difficulty"><i class="fa-solid fa-arrow-up"></i> {{localize "SWFFG.Roll.upgradeDifficulty"}}</button>
+    <button type="button" data-action="upgrade" data-kind="downDifficulty"><i class="fa-solid fa-arrow-down"></i> {{localize "SWFFG.Roll.downgradeDifficulty"}}</button>
+  </div>
+
+  <div class="difficulty-buttons">
+    <span>{{localize "SWFFG.Difficulty.label"}} :</span>
+    {{#each difficulties as |d|}}
+    <button type="button" class="{{#if d.active}}active{{/if}}" data-action="setDifficulty" data-n="{{d.n}}" data-tooltip="{{d.n}}">{{localize d.label}}</button>
+    {{/each}}
+  </div>
+
+  <details class="extra-results">
+    <summary>{{localize "SWFFG.Roll.talentNotes"}}</summary>
+    <div class="result-controls">
+      {{#each results as |r|}}
+      <span class="result-control">
+        {{swffgSymbol r.key}}
+        <a data-action="removeResult" data-result="{{r.key}}"><i class="fa-solid fa-minus"></i></a>
+        <span class="count">{{r.count}}</span>
+        <a data-action="addResult" data-result="{{r.key}}"><i class="fa-solid fa-plus"></i></a>
+      </span>
+      {{/each}}
+    </div>
+    {{#if removeSetback}}<p class="hint">− {{removeSetback}} {{swffgDie "setback"}}</p>{{/if}}
+    {{#if notes.length}}
+    <ul class="talent-notes">{{#each notes as |n|}}<li>{{n.name}}</li>{{/each}}</ul>
+    {{/if}}
+  </details>
+
+  <footer class="form-footer">
+    <button type="submit"><i class="fa-solid fa-dice"></i> {{localize "SWFFG.Roll.roll"}}</button>
+  </footer>
+</div>

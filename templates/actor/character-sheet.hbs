@@ -1,0 +1,302 @@
+<div class="swffg-sheet character">
+  <header class="sheet-header">
+    <img class="portrait" src="{{actor.img}}" alt="{{actor.name}}" data-action="editImage" data-edit="img">
+    <div class="header-main">
+      <input class="actor-name" type="text" name="name" value="{{actor.name}}" placeholder="{{localize 'SWFFG.Sheet.name'}}">
+      <div class="identity">
+        <span class="identity-item">{{localize "SWFFG.Sheet.species"}} :
+          {{#if species}}<a data-item-id="{{species.id}}" data-action="itemEdit">{{species.name}}</a>{{else}}—{{/if}}</span>
+        <span class="identity-item">{{localize "SWFFG.Sheet.career"}} :
+          {{#if career}}<a data-item-id="{{career.id}}" data-action="itemEdit">{{career.name}}</a>{{else}}—{{/if}}</span>
+        <span class="identity-item">{{localize "SWFFG.Sheet.specializations"}} :
+          {{#each specializations as |s|}}<a data-item-id="{{s.id}}" data-action="itemEdit">{{s.name}}</a>{{#unless @last}}, {{/unless}}{{else}}—{{/each}}</span>
+      </div>
+      <div class="header-stats">
+        <label>{{localize "SWFFG.Sheet.xpTotal"}} <input type="number" name="system.xp.total" value="{{system.xp.total}}" min="0"></label>
+        <label>{{localize "SWFFG.Sheet.xpAvailable"}} <input type="number" name="system.xp.available" value="{{system.xp.available}}"></label>
+        <label>{{localize "SWFFG.Sheet.credits"}} <input type="number" name="system.credits" value="{{system.credits}}" min="0"></label>
+        <button type="button" class="destiny-button" data-action="destiny" data-tooltip="{{localize 'SWFFG.Destiny.title'}}"><i class="fa-solid fa-yin-yang"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="sheet-tabs tabs">
+    {{#each tabs as |tab|}}
+    <a data-action="tab" data-group="{{tab.group}}" data-tab="{{tab.id}}" class="{{tab.cssClass}}">{{localize tab.label}}</a>
+    {{/each}}
+  </nav>
+
+  {{!-- ============================== PRINCIPAL ============================== --}}
+  <section class="tab {{tabs.main.cssClass}}" data-group="primary" data-tab="main">
+    {{> "swffg-characteristics"}}
+
+    <div class="derived">
+      <div class="derived-box wounds">
+        <h4>{{localize "SWFFG.Sheet.wounds"}}</h4>
+        <div class="track">
+          <a data-action="adjust" data-path="system.wounds.value" data-delta="-1"><i class="fa-solid fa-minus"></i></a>
+          <span class="value {{#if (gt system.wounds.value system.wounds.max)}}over{{/if}}">{{system.wounds.value}}</span> / <span>{{system.wounds.max}}</span>
+          <a data-action="adjust" data-path="system.wounds.value" data-delta="1"><i class="fa-solid fa-plus"></i></a>
+        </div>
+        <div class="bar"><div style="width: {{woundPct}}%"></div></div>
+      </div>
+      <div class="derived-box strain">
+        <h4>{{localize "SWFFG.Sheet.strain"}}</h4>
+        <div class="track">
+          <a data-action="adjust" data-path="system.strain.value" data-delta="-1"><i class="fa-solid fa-minus"></i></a>
+          <span class="value {{#if (gt system.strain.value system.strain.max)}}over{{/if}}">{{system.strain.value}}</span> / <span>{{system.strain.max}}</span>
+          <a data-action="adjust" data-path="system.strain.value" data-delta="1"><i class="fa-solid fa-plus"></i></a>
+        </div>
+        <div class="bar"><div style="width: {{strainPct}}%"></div></div>
+      </div>
+      <div class="derived-box">
+        <h4>{{localize "SWFFG.Sheet.soak"}}</h4>
+        <div class="big">{{system.soak}}</div>
+      </div>
+      <div class="derived-box">
+        <h4>{{localize "SWFFG.Sheet.defense"}}</h4>
+        <div class="split">
+          <span data-tooltip="{{localize 'SWFFG.Sheet.defenseMelee'}}"><i class="fa-solid fa-hand-fist"></i> {{system.defense.melee}}</span>
+          <span data-tooltip="{{localize 'SWFFG.Sheet.defenseRanged'}}"><i class="fa-solid fa-crosshairs"></i> {{system.defense.ranged}}</span>
+        </div>
+      </div>
+      <div class="derived-box {{#if encumbered}}warning{{/if}}">
+        <h4>{{localize "SWFFG.Sheet.encumbrance"}}</h4>
+        <div class="big">{{system.encumbrance.value}} / {{system.encumbrance.max}}</div>
+      </div>
+      {{#if system.forceRating.total}}
+      <div class="derived-box force">
+        <h4>{{localize "SWFFG.Sheet.forceRating"}}</h4>
+        <div class="big"><a data-action="rollForce">{{system.forceRating.total}}</a></div>
+      </div>
+      {{/if}}
+    </div>
+
+    {{#if (or system.session.strainThreshold system.session.woundThreshold)}}
+    <p class="session-note"><i class="fa-solid fa-dice-d20"></i> {{localize "SWFFG.Sheet.session"}} :
+      {{#if system.session.strainThreshold}}{{localize "SWFFG.Sheet.strainThreshold"}} -{{system.session.strainThreshold}}{{/if}}
+      {{#if system.session.woundThreshold}}{{localize "SWFFG.Sheet.woundThreshold"}} +{{system.session.woundThreshold}}{{/if}}
+    </p>
+    {{/if}}
+
+    <h3>{{localize "SWFFG.Sheet.criticals"}}
+      {{#if editable}}<button type="button" class="icon" data-action="itemCreate" data-type="critical"><i class="fa-solid fa-plus"></i></button>{{/if}}
+    </h3>
+    <table class="swffg-table items">
+      <tbody>
+        {{#each items.critical as |i|}}
+        <tr data-item-id="{{i.id}}">
+          <td>{{i.name}}</td>
+          <td class="small">{{localize (lookup @root.config.SEVERITIES i.system.severity)}}</td>
+          <td class="controls">
+            <a data-action="itemChat"><i class="fa-solid fa-comment"></i></a>
+            <a data-action="itemEdit"><i class="fa-solid fa-pen"></i></a>
+            {{#if @root.editable}}<a data-action="itemDelete"><i class="fa-solid fa-trash"></i></a>{{/if}}
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </section>
+
+  {{!-- ============================== COMPÉTENCES ============================== --}}
+  <section class="tab {{tabs.skills.cssClass}}" data-group="primary" data-tab="skills">
+    {{> "swffg-skills"}}
+  </section>
+
+  {{!-- ============================== TALENTS ============================== --}}
+  <section class="tab {{tabs.talents.cssClass}}" data-group="primary" data-tab="talents">
+    <h3>{{localize "TYPES.Item.talent"}}
+      {{#if editable}}<button type="button" class="icon" data-action="itemCreate" data-type="talent"><i class="fa-solid fa-plus"></i></button>{{/if}}
+    </h3>
+    <table class="swffg-table items talents">
+      <thead><tr><th>{{localize "SWFFG.Sheet.name"}}</th><th>{{localize "SWFFG.Activation.label"}}</th><th>{{localize "SWFFG.Sheet.rank"}}</th><th></th></tr></thead>
+      <tbody>
+        {{#each items.talent as |i|}}
+        <tr data-item-id="{{i.id}}">
+          <td>{{#if i.system.forceTalent}}<i class="fa-solid fa-jedi"></i> {{/if}}<a data-action="itemChat">{{i.name}}</a></td>
+          <td class="small">{{localize i.activationLabel}}</td>
+          <td class="center">{{#if i.system.ranked}}{{#if @root.editable}}<input type="number" data-item-field="system.rank" value="{{i.system.rank}}" min="0">{{else}}{{i.system.rank}}{{/if}}{{/if}}</td>
+          <td class="controls">
+            <a data-action="itemEdit"><i class="fa-solid fa-pen"></i></a>
+            {{#if @root.editable}}<a data-action="itemDelete"><i class="fa-solid fa-trash"></i></a>{{/if}}
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+
+    <h3>{{localize "SWFFG.Sheet.specializations"}}
+      {{#if editable}}<button type="button" class="icon" data-action="itemCreate" data-type="specialization"><i class="fa-solid fa-plus"></i></button>{{/if}}
+    </h3>
+    {{#each specializations as |spec|}}
+    <div class="talent-tree" data-item-id="{{spec.id}}">
+      <h4><a data-action="itemEdit">{{spec.name}}</a>
+        {{#if spec.system.career}}<span class="small">({{spec.system.career}})</span>{{/if}}
+        {{#if @root.editable}}<a class="right" data-action="itemDelete"><i class="fa-solid fa-trash"></i></a>{{/if}}
+      </h4>
+      <div class="tree-grid">
+        {{#each spec.rows as |row|}}
+        <div class="tree-row">
+          {{#each row.cells as |cell|}}
+          <div class="tree-cell {{#if cell.learned}}learned{{/if}} {{#if cell.reachable}}reachable{{/if}} {{#if cell.linkRight}}link-right{{/if}} {{#if cell.linkDown}}link-down{{/if}}"
+               {{#if (and @root.editable cell.reachable cell.name)}}data-action="learnTalent"{{/if}} data-index="{{cell.index}}"
+               data-tooltip="{{cell.text}}">
+            <div class="cell-name">{{cell.name}}</div>
+            <div class="cell-meta"><span>{{localize cell.activationLabel}}</span><span class="cost">{{row.cost}}</span></div>
+          </div>
+          {{/each}}
+        </div>
+        {{/each}}
+      </div>
+    </div>
+    {{/each}}
+
+    <h3>{{localize "TYPES.Item.species"}} / {{localize "TYPES.Item.career"}}
+      {{#if editable}}
+      <button type="button" class="icon" data-action="itemCreate" data-type="species" data-tooltip="{{localize 'TYPES.Item.species'}}"><i class="fa-solid fa-dna"></i></button>
+      <button type="button" class="icon" data-action="itemCreate" data-type="career" data-tooltip="{{localize 'TYPES.Item.career'}}"><i class="fa-solid fa-briefcase"></i></button>
+      {{/if}}
+    </h3>
+    <ul class="item-list">
+      {{#each items.species as |i|}}<li data-item-id="{{i.id}}"><img src="{{i.img}}" class="item-img"> <a data-action="itemEdit">{{i.name}}</a> {{#if @root.editable}}<a data-action="itemDelete"><i class="fa-solid fa-trash"></i></a>{{/if}}</li>{{/each}}
+      {{#each items.career as |i|}}<li data-item-id="{{i.id}}"><img src="{{i.img}}" class="item-img"> <a data-action="itemEdit">{{i.name}}</a> {{#if @root.editable}}<a data-action="itemDelete"><i class="fa-solid fa-trash"></i></a>{{/if}}</li>{{/each}}
+    </ul>
+  </section>
+
+  {{!-- ============================== FORCE ============================== --}}
+  <section class="tab {{tabs.force.cssClass}}" data-group="primary" data-tab="force">
+    <div class="force-header">
+      <div class="derived-box force">
+        <h4>{{localize "SWFFG.Sheet.forceRating"}}</h4>
+        <div class="big">{{system.forceRating.total}}</div>
+      </div>
+      <div class="derived-box">
+        <h4>{{localize "SWFFG.Sheet.committed"}}</h4>
+        <div class="track">
+          <a data-action="adjust" data-path="system.forceRating.committed" data-delta="-1"><i class="fa-solid fa-minus"></i></a>
+          <span class="value">{{system.forceRating.committed}}</span>
+          <a data-action="adjust" data-path="system.forceRating.committed" data-delta="1"><i class="fa-solid fa-plus"></i></a>
+        </div>
+      </div>
+      <button type="button" data-action="rollForce"><i class="fa-solid fa-hand-sparkles"></i> {{localize "SWFFG.Roll.roll"}}</button>
+    </div>
+
+    <h3>{{localize "TYPES.Item.forcepower"}}
+      {{#if editable}}<button type="button" class="icon" data-action="itemCreate" data-type="forcepower"><i class="fa-solid fa-plus"></i></button>{{/if}}
+    </h3>
+    <table class="swffg-table items">
+      <tbody>
+        {{#each items.forcepower as |i|}}
+        <tr data-item-id="{{i.id}}">
+          <td><img src="{{i.img}}" class="item-img"></td>
+          <td><a data-action="rollForce">{{i.name}}</a></td>
+          <td class="small">{{i.system.xpSpent}} XP</td>
+          <td class="controls">
+            <a data-action="itemChat"><i class="fa-solid fa-comment"></i></a>
+            <a data-action="itemEdit"><i class="fa-solid fa-pen"></i></a>
+            {{#if @root.editable}}<a data-action="itemDelete"><i class="fa-solid fa-trash"></i></a>{{/if}}
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </section>
+
+  {{!-- ============================== MOTIVATIONS / ÉTAPE 2 ============================== --}}
+  <section class="tab {{tabs.social.cssClass}}" data-group="primary" data-tab="social">
+    <div class="mechanic-toggles">
+      <label>{{localize "SWFFG.Sheet.obligation"}} <select name="system.mechanics.obligation">{{selectOptions mechanicChoices selected=system.mechanics.obligation}}</select></label>
+      <label>{{localize "SWFFG.Sheet.duty"}} <select name="system.mechanics.duty">{{selectOptions mechanicChoices selected=system.mechanics.duty}}</select></label>
+      <label>{{localize "SWFFG.Sheet.morality"}} <select name="system.mechanics.morality">{{selectOptions mechanicChoices selected=system.mechanics.morality}}</select></label>
+    </div>
+
+    {{#if mechanics.obligation}}
+    <h3>{{localize "SWFFG.Sheet.obligation"}} ({{system.obligationTotal}})
+      {{#if editable}}<button type="button" class="icon" data-action="entryAdd" data-array="obligations"><i class="fa-solid fa-plus"></i></button>{{/if}}
+    </h3>
+    <table class="swffg-table entries">
+      <thead><tr><th>{{localize "SWFFG.Sheet.type"}}</th><th>{{localize "SWFFG.Sheet.value"}}</th><th>{{localize "SWFFG.Sheet.notes"}}</th><th></th></tr></thead>
+      <tbody>
+        {{#each system.obligations as |o idx|}}
+        <tr>
+          <td><input type="text" data-array="obligations" data-index="{{idx}}" data-field="type" value="{{o.type}}"></td>
+          <td class="num"><input type="number" data-array="obligations" data-index="{{idx}}" data-field="value" value="{{o.value}}" min="0"></td>
+          <td><input type="text" data-array="obligations" data-index="{{idx}}" data-field="notes" value="{{o.notes}}"></td>
+          <td>{{#if @root.editable}}<a data-action="entryRemove" data-array="obligations" data-index="{{idx}}"><i class="fa-solid fa-trash"></i></a>{{/if}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+    {{/if}}
+
+    {{#if mechanics.duty}}
+    <h3>{{localize "SWFFG.Sheet.duty"}} ({{system.dutyTotal}})
+      {{#if editable}}<button type="button" class="icon" data-action="entryAdd" data-array="duties"><i class="fa-solid fa-plus"></i></button>{{/if}}
+      <label class="inline right">{{localize "SWFFG.Sheet.contribution"}} <input type="number" name="system.contribution" value="{{system.contribution}}" min="0"></label>
+    </h3>
+    <table class="swffg-table entries">
+      <thead><tr><th>{{localize "SWFFG.Sheet.type"}}</th><th>{{localize "SWFFG.Sheet.value"}}</th><th>{{localize "SWFFG.Sheet.notes"}}</th><th></th></tr></thead>
+      <tbody>
+        {{#each system.duties as |o idx|}}
+        <tr>
+          <td><input type="text" data-array="duties" data-index="{{idx}}" data-field="type" value="{{o.type}}"></td>
+          <td class="num"><input type="number" data-array="duties" data-index="{{idx}}" data-field="value" value="{{o.value}}" min="0"></td>
+          <td><input type="text" data-array="duties" data-index="{{idx}}" data-field="notes" value="{{o.notes}}"></td>
+          <td>{{#if @root.editable}}<a data-action="entryRemove" data-array="duties" data-index="{{idx}}"><i class="fa-solid fa-trash"></i></a>{{/if}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+    {{/if}}
+
+    {{#if mechanics.morality}}
+    <h3>{{localize "SWFFG.Sheet.morality"}}
+      {{#if system.morality.isDark}}<span class="badge dark">{{localize "SWFFG.Sheet.darkSide"}}</span>{{/if}}
+      {{#if system.morality.isParagon}}<span class="badge light">{{localize "SWFFG.Sheet.paragon"}}</span>{{/if}}
+    </h3>
+    <div class="morality">
+      <label>{{localize "SWFFG.Sheet.morality"}} <input type="number" name="system.morality.value" value="{{system.morality.value}}" min="0" max="100"></label>
+      <label>{{localize "SWFFG.Sheet.conflict"}}
+        <span class="track">
+          <a data-action="adjust" data-path="system.morality.conflict" data-delta="-1"><i class="fa-solid fa-minus"></i></a>
+          <span class="value">{{system.morality.conflict}}</span>
+          <a data-action="adjust" data-path="system.morality.conflict" data-delta="1"><i class="fa-solid fa-plus"></i></a>
+        </span>
+      </label>
+      <label>{{localize "SWFFG.Sheet.strength"}} <input type="text" name="system.morality.strength" value="{{system.morality.strength}}"></label>
+      <label>{{localize "SWFFG.Sheet.weakness"}} <input type="text" name="system.morality.weakness" value="{{system.morality.weakness}}"></label>
+      {{#if editable}}<button type="button" data-action="resolveConflict"><i class="fa-solid fa-scale-balanced"></i> {{localize "SWFFG.Sheet.endSession"}}</button>{{/if}}
+    </div>
+    {{/if}}
+
+    <h3>{{localize "SWFFG.Sheet.motivations"}}
+      {{#if editable}}<button type="button" class="icon" data-action="entryAdd" data-array="motivations"><i class="fa-solid fa-plus"></i></button>{{/if}}
+    </h3>
+    <table class="swffg-table entries">
+      <tbody>
+        {{#each system.motivations as |o idx|}}
+        <tr>
+          <td><input type="text" data-array="motivations" data-index="{{idx}}" data-field="category" value="{{o.category}}" placeholder="{{localize 'SWFFG.Sheet.type'}}"></td>
+          <td><input type="text" data-array="motivations" data-index="{{idx}}" data-field="type" value="{{o.type}}"></td>
+          <td><input type="text" data-array="motivations" data-index="{{idx}}" data-field="description" value="{{o.description}}" placeholder="{{localize 'SWFFG.Sheet.description'}}"></td>
+          <td>{{#if @root.editable}}<a data-action="entryRemove" data-array="motivations" data-index="{{idx}}"><i class="fa-solid fa-trash"></i></a>{{/if}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </section>
+
+  {{!-- ============================== ÉQUIPEMENT ============================== --}}
+  <section class="tab {{tabs.gear.cssClass}}" data-group="primary" data-tab="gear">
+    {{> "swffg-gear"}}
+  </section>
+
+  {{!-- ============================== BIOGRAPHIE ============================== --}}
+  <section class="tab {{tabs.biography.cssClass}}" data-group="primary" data-tab="biography">
+    <h3>{{localize "SWFFG.Sheet.biography"}}</h3>
+    {{> "swffg-editor" field="biography" value=system.biography enriched=enriched.biography uuid=actor.uuid editable=editable}}
+    <h3>{{localize "SWFFG.Sheet.notes"}}</h3>
+    {{> "swffg-editor" field="notes" value=system.notes enriched=enriched.notes uuid=actor.uuid editable=editable}}
+  </section>
+</div>

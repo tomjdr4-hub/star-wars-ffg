@@ -1,0 +1,274 @@
+/* ==========================================================================
+   Star Wars FFG — styles du système
+   ========================================================================== */
+
+:root {
+  --swffg-ability: #3d9a3f;
+  --swffg-proficiency: #f0c419;
+  --swffg-difficulty: #5a2d82;
+  --swffg-challenge: #c0262e;
+  --swffg-boost: #74c7e8;
+  --swffg-setback: #1d1d1d;
+  --swffg-force: #f4f4f4;
+  --swffg-success: #2f7d32;
+  --swffg-advantage: #2a7fb8;
+  --swffg-triumph: #d9a400;
+  --swffg-failure: #9b1c1c;
+  --swffg-threat: #4b2a6d;
+  --swffg-despair: #7a0f0f;
+  --swffg-accent: #b5892b;
+  --swffg-panel: rgba(0, 0, 0, 0.05);
+  --swffg-border: rgba(0, 0, 0, 0.25);
+}
+
+/* ------------------------------ Dés ------------------------------ */
+
+.swffg-die-icon {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin: 0 1px;
+  vertical-align: middle;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+.swffg-die-icon.die-boost { background: var(--swffg-boost); }
+.swffg-die-icon.die-setback { background: var(--swffg-setback); }
+.swffg-die-icon.die-ability,
+.swffg-die-icon.die-difficulty {
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+  border: none;
+}
+.swffg-die-icon.die-ability { background: var(--swffg-ability); }
+.swffg-die-icon.die-difficulty { background: var(--swffg-difficulty); }
+.swffg-die-icon.die-proficiency,
+.swffg-die-icon.die-challenge,
+.swffg-die-icon.die-force {
+  clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
+  border: none;
+}
+.swffg-die-icon.die-proficiency { background: var(--swffg-proficiency); }
+.swffg-die-icon.die-challenge { background: var(--swffg-challenge); }
+.swffg-die-icon.die-force { background: var(--swffg-force); box-shadow: inset 0 0 0 2px #888; }
+
+/* ------------------------------ Symboles ------------------------------ */
+
+.swffg-symbol { margin: 0 1px; }
+.swffg-symbol.success { color: var(--swffg-success); }
+.swffg-symbol.advantage { color: var(--swffg-advantage); }
+.swffg-symbol.triumph { color: var(--swffg-triumph); }
+.swffg-symbol.failure { color: var(--swffg-failure); }
+.swffg-symbol.threat { color: var(--swffg-threat); }
+.swffg-symbol.despair { color: var(--swffg-despair); }
+.swffg-symbol.light { color: #c9c9c9; text-shadow: 0 0 2px #000; }
+.swffg-symbol.dark { color: #111; }
+
+/* ------------------------------ Chat ------------------------------ */
+
+.swffg-roll { display: flex; flex-direction: column; gap: 4px; }
+.swffg-roll .faces { display: flex; flex-wrap: wrap; gap: 3px; }
+.swffg-roll .face {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 26px;
+  height: 26px;
+  padding: 0 3px;
+  border-radius: 4px;
+  font-size: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+}
+.swffg-roll .face.die-ability { background: var(--swffg-ability); }
+.swffg-roll .face.die-proficiency { background: var(--swffg-proficiency); }
+.swffg-roll .face.die-difficulty { background: var(--swffg-difficulty); }
+.swffg-roll .face.die-challenge { background: var(--swffg-challenge); }
+.swffg-roll .face.die-boost { background: var(--swffg-boost); }
+.swffg-roll .face.die-setback { background: var(--swffg-setback); }
+.swffg-roll .face.die-force { background: var(--swffg-force); }
+.swffg-roll .face .swffg-symbol { color: #fff; text-shadow: 0 0 2px #000; }
+.swffg-roll .face.die-force .swffg-symbol.dark { color: #111; text-shadow: none; }
+.swffg-roll .face.die-force .swffg-symbol.light { color: #fff; text-shadow: 0 0 2px #000; }
+.swffg-roll .net-symbols { font-size: 18px; text-align: center; }
+.swffg-roll .outcome {
+  text-align: center;
+  font-weight: bold;
+  padding: 3px;
+  border-radius: 4px;
+  background: var(--swffg-panel);
+}
+.swffg-roll .outcome.success { border-left: 4px solid var(--swffg-success); }
+.swffg-roll .outcome.failure { border-left: 4px solid var(--swffg-failure); }
+.swffg-roll .damage-line { text-align: center; }
+.swffg-roll .crit { color: var(--swffg-challenge); font-weight: bold; }
+.star-wars-ffg.session-card ul { margin: 0; padding-left: 1.2em; }
+.star-wars-ffg.session-card .session-roll { text-align: center; font-size: 1.2em; }
+
+/* ------------------------------ Fiches ------------------------------ */
+
+.star-wars-ffg.sheet .window-content { padding: 0; }
+.swffg-sheet { display: flex; flex-direction: column; height: 100%; padding: 8px; gap: 6px; }
+.swffg-sheet .sheet-header { display: flex; gap: 10px; align-items: flex-start; }
+.swffg-sheet .portrait { width: 100px; height: 100px; object-fit: cover; border: 2px solid var(--swffg-accent); border-radius: 6px; cursor: pointer; }
+.swffg-sheet .portrait.small { width: 64px; height: 64px; }
+.swffg-sheet .header-main { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+.swffg-sheet .actor-name { font-size: 1.6em; height: auto; font-weight: bold; }
+.swffg-sheet .identity { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; font-size: 0.95em; }
+.swffg-sheet .header-stats { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.swffg-sheet .header-stats label { display: flex; align-items: center; gap: 4px; }
+.swffg-sheet .header-stats input { width: 60px; }
+.swffg-sheet .badge { padding: 1px 6px; border-radius: 8px; background: var(--swffg-panel); border: 1px solid var(--swffg-border); font-size: 0.85em; }
+.swffg-sheet .badge.dark { background: #2b0d0d; color: #f1c0c0; }
+.swffg-sheet .badge.light { background: #e7f3ff; color: #1b4f7a; }
+
+.swffg-sheet .sheet-tabs { display: flex; gap: 2px; border-bottom: 2px solid var(--swffg-accent); }
+.swffg-sheet .sheet-tabs a { padding: 4px 10px; border-radius: 4px 4px 0 0; }
+.swffg-sheet .sheet-tabs a.active { background: var(--swffg-accent); color: #fff; }
+.swffg-sheet .tab { flex: 1; overflow-y: auto; display: none; padding: 4px; }
+.swffg-sheet .tab.active { display: block; }
+
+.swffg-sheet h3 { display: flex; align-items: center; gap: 6px; margin: 10px 0 4px; border-bottom: 1px solid var(--swffg-border); }
+.swffg-sheet h3 .right, .swffg-sheet h4 .right { margin-left: auto; }
+.swffg-sheet button.icon { flex: 0 0 auto; width: auto; height: 22px; line-height: 20px; padding: 0 6px; }
+.swffg-sheet .small { font-size: 0.85em; opacity: 0.85; }
+.swffg-sheet .hint { font-size: 0.85em; font-style: italic; opacity: 0.8; }
+.swffg-sheet label.inline { display: inline-flex; align-items: center; gap: 4px; font-size: 0.85em; }
+.swffg-sheet input.tiny { width: 40px; }
+
+/* Caractéristiques */
+.swffg-sheet .characteristics { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; margin: 6px 0; }
+.swffg-sheet .characteristic { display: flex; flex-direction: column; align-items: center; }
+.swffg-sheet .char-circle {
+  width: 56px; height: 56px; border-radius: 50%;
+  border: 3px solid var(--swffg-accent);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.8em; font-weight: bold; background: var(--swffg-panel);
+}
+.swffg-sheet .char-circle input { width: 40px; text-align: center; font-size: 1em; border: none; background: transparent; font-weight: bold; }
+.swffg-sheet .characteristic label { font-size: 0.85em; font-weight: bold; text-transform: uppercase; }
+.swffg-sheet .char-total { font-size: 0.8em; }
+
+/* Valeurs dérivées */
+.swffg-sheet .derived { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0; }
+.swffg-sheet .derived-box {
+  flex: 1 1 110px; min-width: 110px;
+  border: 1px solid var(--swffg-border); border-radius: 6px;
+  padding: 4px; text-align: center; background: var(--swffg-panel);
+}
+.swffg-sheet .derived-box h4 { margin: 0 0 2px; font-size: 0.85em; text-transform: uppercase; }
+.swffg-sheet .derived-box .big, .swffg-sheet .derived-box input.big { font-size: 1.5em; font-weight: bold; width: 60px; text-align: center; }
+.swffg-sheet .derived-box.warning { border-color: var(--swffg-challenge); }
+.swffg-sheet .derived-box .split { display: flex; justify-content: space-around; gap: 4px; font-weight: bold; }
+.swffg-sheet .derived-box .split input { width: 40px; }
+.swffg-sheet .track { display: inline-flex; align-items: center; gap: 4px; font-weight: bold; }
+.swffg-sheet .track input { width: 42px; }
+.swffg-sheet .track .value.over { color: var(--swffg-challenge); }
+.swffg-sheet .bar { height: 5px; background: rgba(0, 0, 0, 0.15); border-radius: 3px; margin-top: 3px; }
+.swffg-sheet .wounds .bar div { height: 100%; background: var(--swffg-challenge); border-radius: 3px; }
+.swffg-sheet .strain .bar div { height: 100%; background: var(--swffg-advantage); border-radius: 3px; }
+.swffg-sheet .session-note { font-style: italic; }
+
+/* Tableaux */
+.swffg-table { width: 100%; border-collapse: collapse; margin: 0; }
+.swffg-table th { text-align: left; font-size: 0.8em; text-transform: uppercase; }
+.swffg-table td, .swffg-table th { padding: 2px 4px; border-bottom: 1px solid rgba(0, 0, 0, 0.08); }
+.swffg-table td.center, .swffg-table td.num { text-align: center; }
+.swffg-table td.num input, .swffg-table td.center input { width: 50px; text-align: center; }
+.swffg-table td.controls { text-align: right; white-space: nowrap; }
+.swffg-table td.controls a { margin-left: 4px; }
+.swffg-table td.controls a.active { color: var(--swffg-accent); }
+.swffg-table .item-img { width: 24px; height: 24px; border: none; cursor: pointer; }
+.swffg-sheet .item-list { list-style: none; margin: 0; padding: 0; }
+.swffg-sheet .item-list li { display: flex; align-items: center; gap: 6px; padding: 2px 0; }
+.swffg-sheet .item-list .item-img { width: 24px; height: 24px; border: none; }
+
+/* Compétences */
+.swffg-sheet .skill-groups { display: grid; grid-template-columns: 1fr 1fr; gap: 0 12px; }
+.swffg-sheet .skill-group:first-child { grid-row: span 2; }
+.swffg-sheet .skills tr.career .skill-name a { font-weight: bold; }
+.swffg-sheet .skills .char-abbr { font-size: 0.75em; opacity: 0.7; }
+.swffg-sheet .skills td.rank input { width: 36px; text-align: center; }
+.swffg-sheet .skills td.pool { white-space: nowrap; }
+.swffg-sheet .career-star { color: var(--swffg-accent); font-size: 0.8em; }
+.swffg-sheet .skills input[type="checkbox"] { margin: 0; }
+
+/* Arborescences de talents */
+.swffg-sheet .talent-tree { margin-bottom: 10px; }
+.swffg-sheet .talent-tree h4 { display: flex; align-items: center; gap: 6px; margin: 4px 0; }
+.swffg-sheet .tree-grid { display: flex; flex-direction: column; gap: 10px; }
+.swffg-sheet .tree-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.swffg-sheet .tree-cell {
+  position: relative;
+  min-height: 52px;
+  border: 2px solid var(--swffg-border);
+  border-radius: 6px;
+  padding: 3px 5px;
+  background: var(--swffg-panel);
+  font-size: 0.85em;
+}
+.swffg-sheet .tree-cell .cell-name { font-weight: bold; }
+.swffg-sheet .tree-cell .cell-meta { display: flex; justify-content: space-between; font-size: 0.8em; opacity: 0.85; }
+.swffg-sheet .tree-cell .cost { font-weight: bold; }
+.swffg-sheet .tree-cell.learned { border-color: var(--swffg-success); background: rgba(47, 125, 50, 0.15); }
+.swffg-sheet .tree-cell.reachable { border-style: dashed; border-color: var(--swffg-accent); cursor: pointer; }
+.swffg-sheet .tree-cell.reachable:hover { background: rgba(181, 137, 43, 0.2); }
+.swffg-sheet .tree-cell.link-right::after {
+  content: ""; position: absolute; right: -14px; top: 50%; width: 12px; height: 3px; background: var(--swffg-accent);
+}
+.swffg-sheet .tree-cell.link-down::before {
+  content: ""; position: absolute; bottom: -12px; left: 50%; width: 3px; height: 10px; background: var(--swffg-accent);
+}
+.swffg-sheet .tree-grid.editor .tree-cell { display: flex; flex-direction: column; gap: 2px; }
+.swffg-sheet .tree-grid.editor .tree-cell input[type="text"], .swffg-sheet .tree-grid.editor .tree-cell select { width: 100%; font-size: 0.9em; }
+.swffg-sheet .link-toggle { position: absolute; z-index: 1; background: rgba(0, 0, 0, 0.15); }
+.swffg-sheet .link-toggle.right { right: -14px; top: 40%; width: 12px; height: 12px; }
+.swffg-sheet .link-toggle.down { bottom: -12px; left: 45%; width: 12px; height: 10px; }
+.swffg-sheet .link-toggle.on { background: var(--swffg-accent); }
+.swffg-sheet .tree-grid.editor .tree-cell.link-right::after, .swffg-sheet .tree-grid.editor .tree-cell.link-down::before { display: none; }
+
+/* Divers */
+.swffg-sheet .details-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px 10px; }
+.swffg-sheet .details-grid label { display: flex; flex-direction: column; font-size: 0.85em; }
+.swffg-sheet .details-grid label.checkbox { flex-direction: row; align-items: center; gap: 4px; }
+.swffg-sheet .details-grid label.wide { grid-column: 1 / -1; }
+.swffg-sheet .checkbox-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px 8px; font-size: 0.85em; }
+.swffg-sheet .mechanic-toggles { display: flex; gap: 12px; }
+.swffg-sheet .morality { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 12px; align-items: center; }
+.swffg-sheet .morality label { display: flex; align-items: center; gap: 6px; }
+.swffg-sheet .force-header { display: flex; gap: 8px; align-items: center; }
+.swffg-sheet .entries input[type="text"] { width: 100%; }
+.swffg-sheet .vehicle-defense .defense-ship {
+  display: grid; grid-template-areas: ". fore ." "port ship starboard" ". aft ."; grid-template-columns: 1fr auto 1fr;
+  justify-items: center; align-items: center; gap: 4px;
+}
+.swffg-sheet .defense-ship .fore { grid-area: fore; }
+.swffg-sheet .defense-ship .aft { grid-area: aft; }
+.swffg-sheet .defense-ship .port { grid-area: port; }
+.swffg-sheet .defense-ship .starboard { grid-area: starboard; }
+.swffg-sheet .defense-ship .ship-icon { grid-area: ship; font-size: 2.5em; color: var(--swffg-accent); }
+.swffg-sheet .defense-ship input { width: 40px; }
+.swffg-sheet prose-mirror { min-height: 140px; }
+
+/* ------------------------------ Fenêtre de jet ------------------------------ */
+
+.star-wars-ffg.roll-dialog .roll-dialog-body { display: flex; flex-direction: column; gap: 6px; }
+.star-wars-ffg.roll-dialog .pool-preview { min-height: 26px; text-align: center; }
+.star-wars-ffg.roll-dialog .pool-preview .swffg-die-icon { width: 22px; height: 22px; }
+.star-wars-ffg.roll-dialog .dice-controls td.controls { text-align: right; }
+.star-wars-ffg.roll-dialog .count { display: inline-block; min-width: 20px; text-align: center; font-weight: bold; }
+.star-wars-ffg.roll-dialog .upgrade-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
+.star-wars-ffg.roll-dialog .upgrade-buttons button { font-size: 0.8em; }
+.star-wars-ffg.roll-dialog .difficulty-buttons { display: flex; flex-wrap: wrap; gap: 3px; align-items: center; }
+.star-wars-ffg.roll-dialog .difficulty-buttons button { flex: 1 1 auto; font-size: 0.8em; }
+.star-wars-ffg.roll-dialog .difficulty-buttons button.active { background: var(--swffg-difficulty); color: #fff; }
+.star-wars-ffg.roll-dialog .result-controls { display: flex; flex-wrap: wrap; gap: 8px; }
+.star-wars-ffg.roll-dialog .flavor { display: flex; align-items: center; gap: 6px; }
+.star-wars-ffg.roll-dialog .flavor input { flex: 1; }
+
+/* ------------------------------ Réserve de Destin ------------------------------ */
+
+.star-wars-ffg.destiny-pool .destiny-body { display: flex; flex-direction: column; gap: 8px; }
+.star-wars-ffg.destiny-pool .destiny-side { display: flex; flex-direction: column; gap: 4px; align-items: center; }
+.star-wars-ffg.destiny-pool .tokens { display: flex; flex-wrap: wrap; gap: 4px; min-height: 24px; justify-content: center; }
+.star-wars-ffg.destiny-pool .destiny-token { width: 22px; height: 22px; border-radius: 50%; border: 2px solid #777; }
+.star-wars-ffg.destiny-pool .destiny-token.light { background: radial-gradient(circle, #fff 40%, #cfe6ff); }
+.star-wars-ffg.destiny-pool .destiny-token.dark { background: radial-gradient(circle, #333 40%, #000); }
+.star-wars-ffg.destiny-pool .side-label { display: flex; gap: 6px; align-items: center; font-weight: bold; }

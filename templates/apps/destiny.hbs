@@ -1,0 +1,17 @@
+<div class="destiny-body">
+  <div class="destiny-side light">
+    <div class="tokens">{{#each light}}<span class="destiny-token light"></span>{{/each}}</div>
+    <div class="side-label">{{localize "SWFFG.Destiny.light"}} : {{lightCount}}
+      {{#if isGM}}<a data-action="adjust" data-side="light" data-delta="-1"><i class="fa-solid fa-minus"></i></a><a data-action="adjust" data-side="light" data-delta="1"><i class="fa-solid fa-plus"></i></a>{{/if}}
+    </div>
+    <button type="button" data-action="flip" data-side="light" {{#if isGM}}disabled{{/if}}>{{localize "SWFFG.Destiny.flipLight"}}</button>
+  </div>
+  <div class="destiny-side dark">
+    <div class="tokens">{{#each dark}}<span class="destiny-token dark"></span>{{/each}}</div>
+    <div class="side-label">{{localize "SWFFG.Destiny.dark"}} : {{darkCount}}
+      {{#if isGM}}<a data-action="adjust" data-side="dark" data-delta="-1"><i class="fa-solid fa-minus"></i></a><a data-action="adjust" data-side="dark" data-delta="1"><i class="fa-solid fa-plus"></i></a>{{/if}}
+    </div>
+    {{#if isGM}}<button type="button" data-action="flip" data-side="dark">{{localize "SWFFG.Destiny.flipDark"}}</button>{{/if}}
+  </div>
+  {{#if isGM}}<button type="button" class="generate" data-action="generate"><i class="fa-solid fa-dice"></i> {{localize "SWFFG.Destiny.generate"}}</button>{{/if}}
+</div>
