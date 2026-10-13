@@ -13,7 +13,7 @@ Dans Foundry : *Systèmes de jeu → Installer un système*, puis collez l'URL d
 https://github.com/tomjdr4-hub/star-wars-ffg/releases/latest/download/system.json
 ```
 
-## Ce qui est en place (v0.3)
+## Ce qui est en place (v0.4)
 
 - **Dés narratifs** : aptitude, maîtrise, difficulté, défi, fortune, infortune et Force.
   - Formules Foundry `da`, `dp`, `di`, `dc`, `db`, `dk`, `df` (par exemple `/r 2da + 1dp + 2di`).
@@ -50,6 +50,9 @@ https://github.com/tomjdr4-hub/star-wars-ffg/releases/latest/download/system.jso
   (une fenêtre s'ouvre pour les choix, par exemple Charme ou Tromperie).
 - **Compendiums des carrières et spécialités** : les 18 carrières et les 57 arborescences des trois livres
   (cases, activation, talents de la Force, liens), achetables en XP depuis la fiche.
+- **Compendium des talents** : les 268 talents des trois livres avec leur texte et leurs symboles. Un talent acheté
+  dans un arbre est repris du compendium ; les effets chiffrés (Endurci, Robustesse, Valeur de Force, techniques de
+  sabre laser…) sont appliqués automatiquement.
 
 ## Les trois livres et leurs différences
 

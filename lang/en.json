@@ -374,7 +374,8 @@
       "vehicleWeapon": "Vehicle weapon",
       "ships": "Starship scale",
       "compatibleWith": "Compatible with",
-      "mods": "Modifications"
+      "mods": "Modifications",
+      "differences": "Differences between books"
     },
     "Modifier": {
       "target": "Target",
@@ -391,7 +392,8 @@
       "skillBoost": "Boost die on a skill",
       "skillRemoveSetback": "Remove a setback die on a skill",
       "skillCareer": "Career skill",
-      "skillAdvantage": "Automatic advantage on a skill"
+      "skillAdvantage": "Automatic advantage on a skill",
+      "skillCharacteristic": "Alternative characteristic (skill:characteristic)"
     },
     "Setting": {
       "booksHint": "Determines which book-specific skills (Warfare, Lightsaber) are shown on sheets by default.",

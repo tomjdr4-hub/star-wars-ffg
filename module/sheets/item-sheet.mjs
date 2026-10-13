@@ -7,7 +7,7 @@ const { ItemSheetV2 } = foundry.applications.sheets;
 const MODIFIER_TYPES = {
   woundThreshold: null, strainThreshold: null, soak: null, defenseMelee: null, defenseRanged: null,
   encumbranceThreshold: null, forceRating: null,
-  characteristic: "characteristic", skillRank: "skill", skillBoost: "skill", skillRemoveSetback: "skill", skillCareer: "skill", skillAdvantage: "skill"
+  characteristic: "characteristic", skillRank: "skill", skillBoost: "skill", skillRemoveSetback: "skill", skillCareer: "skill", skillAdvantage: "skill", skillCharacteristic: "text"
 };
 
 const BLANK = {

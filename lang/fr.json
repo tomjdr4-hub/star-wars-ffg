@@ -374,7 +374,8 @@
       "vehicleWeapon": "Arme de véhicule",
       "ships": "Échelle des vaisseaux",
       "compatibleWith": "Compatible avec",
-      "mods": "Modifications"
+      "mods": "Modifications",
+      "differences": "Différences entre les livres"
     },
     "Modifier": {
       "target": "Cible",
@@ -391,7 +392,8 @@
       "skillBoost": "Dé de fortune sur une compétence",
       "skillRemoveSetback": "Retirer un dé d'infortune sur une compétence",
       "skillCareer": "Compétence de carrière",
-      "skillAdvantage": "Avantage automatique sur une compétence"
+      "skillAdvantage": "Avantage automatique sur une compétence",
+      "skillCharacteristic": "Caractéristique alternative (compétence:caractéristique)"
     },
     "Setting": {
       "booksHint": "Détermine les compétences propres à un livre (Stratégie, Sabre laser) affichées par défaut sur les fiches.",

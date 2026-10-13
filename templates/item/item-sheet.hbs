@@ -199,7 +199,7 @@
         {{#each modifiers as |m|}}
         <tr>
           <td><select data-array="modifiers" data-index="{{m.index}}" data-field="type">{{selectOptions @root.modifierChoices selected=m.type localize=true}}</select></td>
-          <td>{{#if m.keyChoices}}<select data-array="modifiers" data-index="{{m.index}}" data-field="key">{{selectOptions m.keyChoices selected=m.key localize=true blank="—"}}</select>{{/if}}</td>
+          <td>{{#if m.keyChoices}}<select data-array="modifiers" data-index="{{m.index}}" data-field="key">{{selectOptions m.keyChoices selected=m.key localize=true blank="—"}}</select>{{else}}{{#if (eq m.keyKind "text")}}<input type="text" data-array="modifiers" data-index="{{m.index}}" data-field="key" value="{{m.key}}" placeholder="lightsaber:agility">{{/if}}{{/if}}</td>
           <td class="num"><input type="number" data-array="modifiers" data-index="{{m.index}}" data-field="value" value="{{m.value}}"></td>
           <td>{{#if @root.editable}}<a data-action="arrayRemove" data-array="modifiers" data-index="{{m.index}}"><i class="fa-solid fa-trash"></i></a>{{/if}}</td>
         </tr>

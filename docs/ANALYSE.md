@@ -130,6 +130,15 @@ garde les mêmes règles. Ce qui change :
 - **La traduction**. Le même talent VO peut porter deux noms français, et deux talents différents peuvent
   avoir des noms proches. Il faut vérifier par la règle, pas par le nom. Par exemple, *Coup précis* (AoE,
   Precise Aim) et *Visée juste* (EdR, True Aim) sont deux talents différents.
+- **Noms différents entre l'arbre et le chapitre des talents** (même livre) : le compendium garde le nom du chapitre
+  et accepte le nom de l'arbre.
+  - EdR : « Bourlingueur » (arbre de la Recrue) = « Grand voyageur ».
+  - F&D : « Œil aiguisé » = « Aux aguets » ; « Adversaires multiples » = « Encerclé » ; « Plan B » = « Plan d'urgence ».
+- **Règles différentes pour un même talent** :
+  - Connaissances spécialisées : passif dans AoE, actif (broutille) dans EdR et F&D.
+  - Perception des émotions : actif (broutille) dans AoE, passif (et talent de la Force) dans F&D.
+  - Sixième sens : sans rangs dans AoE et EdR, à rangs dans F&D.
+  - Sérénité : compte les résultats lumineux dans EdR, les points de Force dans F&D.
 - **Les talents propres à chaque livre** : formes de sabre laser (Parer, Dévier, techniques Makashi, Soresu,
   Ataru, Niman, Shien, Djem So, Shii-Cho) et talents de la Force dans F&D ; talents militaires et de véhicules
   (Salves précises, Formation incisive, Expert commandant…) dans EdR.
@@ -186,7 +195,7 @@ Les capacités conditionnelles (rage wookie, régénération, vision supérieure
 
 ## 3. Reste à faire
 
-1. **Compendiums**. Espèces, carrières et spécialités : faits. Restent talents (descriptions), pouvoirs,
+1. **Compendiums**. Espèces, carrières, spécialités et talents (268) : faits. Restent pouvoirs de la Force,
    armes, armures, matériel, véhicules et adversaires.
    - Les PDF fournis sont des scans : l'OCR est utilisable pour retrouver les règles, mais les tableaux chiffrés
      doivent être relus sur l'image.

@@ -13,7 +13,7 @@ export function collectModifiers(actor) {
   const totals = {
     woundThreshold: 0, strainThreshold: 0, soak: 0, defenseMelee: 0, defenseRanged: 0,
     encumbranceThreshold: 0, forceRating: 0,
-    characteristic: {}, skillRank: {}, skillBoost: {}, skillRemoveSetback: {}, skillCareer: {}, skillAdvantage: {}
+    characteristic: {}, skillRank: {}, skillBoost: {}, skillRemoveSetback: {}, skillCareer: {}, skillAdvantage: {}, skillCharacteristic: {}
   };
   for ( const item of actor.items ) {
     const sys = item.system;
@@ -23,6 +23,12 @@ export function collectModifiers(actor) {
     const mult = (item.type === "talent") && sys.ranked ? Math.max(sys.rank, 1) : 1;
     for ( const m of sys.modifiers ) {
       const v = m.value * mult;
+      if ( m.type === "skillCharacteristic" ) {
+        // Clé « compétence:caractéristique » : caractéristique alternative autorisée (Technique ataru…).
+        const [skill, char] = (m.key ?? "").split(":");
+        if ( skill && char ) (totals.skillCharacteristic[skill] ??= new Set()).add(char);
+        continue;
+      }
       if ( m.type in totals && (typeof totals[m.type] === "number") ) totals[m.type] += v;
       else if ( (m.type in totals) && m.key ) totals[m.type][m.key] = (totals[m.type][m.key] ?? 0) + v;
     }
@@ -38,6 +44,10 @@ function prepareSkills(system, mods, careerSkills, characteristics) {
     skill.boost = mods.skillBoost[key] ?? 0;
     skill.removeSetback = mods.skillRemoveSetback[key] ?? 0;
     skill.advantage = mods.skillAdvantage[key] ?? 0;
+    // Caractéristique alternative (talents) : on retient la plus élevée.
+    for ( const alt of mods.skillCharacteristic[key] ?? [] ) {
+      if ( (characteristics[alt]?.total ?? 0) > (characteristics[skill.characteristic]?.total ?? 0) ) skill.characteristic = alt;
+    }
     const charValue = characteristics[skill.characteristic]?.total ?? 0;
     skill.pool = {
       proficiency: Math.min(charValue, skill.total),
