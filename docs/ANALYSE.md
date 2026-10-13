@@ -97,14 +97,21 @@ Règles de Moralité (F&D p. 51-53) :
 | AoE | EdR | F&D |
 |---|---|---|
 | Chasseur de primes : Assassin, Expert en gadgets, Expert en survie | As : Fonceur, Artilleur, Pilote | Consulaire : Guérisseur, Disciple niman, Sage |
-| Colon : Médecin, Diplomate, Érudit | Commandant : Commodore, Chef d'escadron, Tacticien | Gardien : Pacificateur, Protecteur, Défenseur soresu |
+| Colon : Médecin, Diplomate, Érudit | Stratège : Chef d'escadron, Commodore, Tacticien | Gardien : Pacificateur, Protecteur, Défenseur soresu |
 | Explorateur : Bourlingueur, Éclaireur, Négociant | Diplomate : Ambassadeur, Agitateur, Intendant | Mystique : Conseiller, Duelliste makashi, Visionnaire |
-| Mercenaire : Garde du corps, Maraudeur, Soldat à louer | Ingénieur : Mécanicien, Saboteur, Scientifique | Chercheur : Bretteur ataru, Chasseur, Arpenteur |
+| Mercenaire : Garde du corps, Maraudeur, Soldat à louer | Ingénieur : Mécanicien, Saboteur, Scientifique | Errant : Arpenteur, Bretteur ataru, Chasseur |
 | Contrebandier : Pilote, Vaurien, Voleur | Soldat : Commando, Urgentiste, Tireur d'élite | Sentinelle : Artisan, Ombre, Expert shien |
 | Technicien : Mécanicien, Tech hors-la-loi, Slicer | Espion : Taupe, Éclaireur, Slicer | Guerrier : Agresseur, Chevalier shii-cho, As de l'espace |
 | *Universelle* : Fugitif de la Force | *Universelles* : Aspirant de la Force, Recrue | — |
 
 Points d'attention :
+
+- **Noms VF** : la carrière *Seeker* s'appelle **Errant** dans la VF de F&D, et *Commander* s'appelle **Stratège** dans
+  la VF d'EdR.
+- **Nombre de compétences de carrière** : 8 par carrière dans AoE et EdR, mais **6 dans F&D**. Chaque spécialité
+  ajoute 4 compétences bonus dans les trois livres (sauf les spécialités de la Force, qui n'en ont pas).
+- **Talents de la Force** (étoile sur l'arbre) : 11 cases sur 20 pour Fugitif / Aspirant de la Force, et de 3 à 11
+  pour les spécialités de F&D. Aucune dans les autres spécialités d'AoE et EdR.
 
 - **Valeur de Force** :
   - dans F&D, toutes les carrières commencent avec une Valeur de Force de 1 (champ « Valeur de Force accordée »
@@ -179,7 +186,7 @@ Les capacités conditionnelles (rage wookie, régénération, vision supérieure
 
 ## 3. Reste à faire
 
-1. **Compendiums**. Espèces : fait. Restent carrières, spécialités (arborescences complètes), talents, pouvoirs,
+1. **Compendiums**. Espèces, carrières et spécialités : faits. Restent talents (descriptions), pouvoirs,
    armes, armures, matériel, véhicules et adversaires.
    - Les PDF fournis sont des scans : l'OCR est utilisable pour retrouver les règles, mais les tableaux chiffrés
      doivent être relus sur l'image.

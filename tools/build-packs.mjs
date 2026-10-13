@@ -6,7 +6,10 @@
 import { compilePack } from "@foundryvtt/foundryvtt-cli";
 import { createHash } from "node:crypto";
 import { mkdir, rm, writeFile } from "node:fs/promises";
+import { readFileSync } from "node:fs";
 import { SPECIES } from "./data/species.mjs";
+
+const TREES = JSON.parse(readFileSync(new URL("./data/specializations.json", import.meta.url), "utf8"));
 
 const CHARS = ["brawn", "agility", "intellect", "cunning", "willpower", "presence"];
 const BOOK_LABEL = { aoe: "AoE", edr: "EdR", fad: "F&D" };
@@ -46,7 +49,41 @@ function speciesDocs() {
   });
 }
 
-const PACKS = { species: speciesDocs };
+/** Clé ASCII stable à partir d'un nom français. */
+function slug(text) {
+  return text.normalize("NFKD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+}
+
+function careerDocs() {
+  return TREES.careers.map((c, i) => itemDoc("careers", `${c.book}-${slug(c.name)}`, c.name, "career", "icons/svg/book.svg", {
+    description: `<p><em>Source : ${BOOK_LABEL[c.book]}</em></p><p>Spécialités : ${c.specs.join(", ")}.</p>`
+      + (c.book === "fad" ? "<p>Les carrières de Force et Destinée commencent avec une valeur de Force de 1.</p>" : ""),
+    source: { book: c.book, page: "" },
+    careerSkills: c.skills,
+    forceRating: c.book === "fad" ? 1 : 0,
+    specializations: c.specs.join(", ")
+  }, (i + 1) * 100));
+}
+
+function specializationDocs() {
+  return TREES.specializations.map((s, i) => itemDoc("specializations", `${s.book}-${slug(s.career)}-${slug(s.name)}`, s.name, "specialization",
+    s.universal ? "icons/svg/aura.svg" : "icons/svg/upgrade.svg", {
+      description: `<p><em>Source : ${BOOK_LABEL[s.book]} p. ${s.page}</em></p>`
+        + `<p>${s.universal ? "Spécialité universelle" : `Carrière : ${s.career}`}.</p>`
+        + (s.forceRating ? "<p>Gagnez une valeur de Force de 1.</p>" : ""),
+      source: { book: s.book, page: s.page },
+      career: s.career,
+      universal: s.universal,
+      careerSkills: s.careerSkills,
+      forceRating: s.forceRating,
+      talents: s.cells.map(c => ({
+        name: c.name, uuid: "", activation: c.activation, ranked: c.ranked, force: c.force, text: "",
+        linkRight: c.linkRight, linkDown: c.linkDown, learned: false
+      }))
+    }, (i + 1) * 100));
+}
+
+const PACKS = { species: speciesDocs, careers: careerDocs, specializations: specializationDocs };
 
 for ( const [pack, build] of Object.entries(PACKS) ) {
   const src = `tools/.cache/packs-src/${pack}`;

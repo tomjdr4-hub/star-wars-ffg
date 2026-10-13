@@ -156,6 +156,7 @@
           <input type="text" data-array="talents" data-index="{{cell.index}}" data-field="name" value="{{cell.name}}" placeholder="—">
           <select data-array="talents" data-index="{{cell.index}}" data-field="activation">{{selectOptions @root.activationChoices selected=cell.activation localize=true}}</select>
           <label class="small"><input type="checkbox" data-array="talents" data-index="{{cell.index}}" data-field="ranked" {{checked cell.ranked}}> {{localize "SWFFG.Item.ranked"}}</label>
+          <label class="small"><input type="checkbox" data-array="talents" data-index="{{cell.index}}" data-field="force" {{checked cell.force}}> {{localize "SWFFG.Item.forceTalent"}}</label>
           <span class="cost">{{row.cost}}</span>
           {{#unless cell.last}}<a class="link-toggle right {{#if cell.linkRight}}on{{/if}}" data-action="toggleLink" data-link="right" data-index="{{cell.index}}"></a>{{/unless}}
           {{#unless cell.bottom}}<a class="link-toggle down {{#if cell.linkDown}}on{{/if}}" data-action="toggleLink" data-link="down" data-index="{{cell.index}}"></a>{{/unless}}

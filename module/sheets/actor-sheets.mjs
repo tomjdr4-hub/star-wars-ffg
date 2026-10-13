@@ -263,7 +263,7 @@ async function grantTalent(actor, cell) {
   data ??= {
     name: cell.name,
     type: "talent",
-    system: { activation: cell.activation, ranked: cell.ranked, rank: 1, description: cell.text ? `<p>${cell.text}</p>` : "" }
+    system: { activation: cell.activation, ranked: cell.ranked, forceTalent: !!cell.force, rank: 1, description: cell.text ? `<p>${cell.text}</p>` : "" }
   };
   data.system.rank = 1;
   return actor.createEmbeddedDocuments("Item", [data]);

@@ -157,7 +157,7 @@ export class ForcePowerData extends BaseItemData {
 
 /** Case vide d'arborescence (les valeurs initiales d'un tableau ne sont pas complétées par Foundry). */
 const BLANK_CELL = {
-  name: "", uuid: "", activation: "passive", ranked: false, text: "", linkRight: false, linkDown: false, learned: false
+  name: "", uuid: "", activation: "passive", ranked: false, force: false, text: "", linkRight: false, linkDown: false, learned: false
 };
 
 /**
@@ -171,6 +171,7 @@ export class SpecializationData extends BaseItemData {
       uuid: str(""),
       activation: str("passive", { blank: false, choices: Object.keys(ACTIVATIONS) }),
       ranked: bool(false),
+      force: bool(false),
       text: str(""),
       linkRight: bool(false),
       linkDown: bool(false),

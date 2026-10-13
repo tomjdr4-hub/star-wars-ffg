@@ -139,10 +139,10 @@
         {{#each spec.rows as |row|}}
         <div class="tree-row">
           {{#each row.cells as |cell|}}
-          <div class="tree-cell {{#if cell.learned}}learned{{/if}} {{#if cell.reachable}}reachable{{/if}} {{#if cell.linkRight}}link-right{{/if}} {{#if cell.linkDown}}link-down{{/if}}"
+          <div class="tree-cell {{#if (ne cell.activation "passive")}}active{{/if}} {{#if cell.learned}}learned{{/if}} {{#if cell.reachable}}reachable{{/if}} {{#if cell.linkRight}}link-right{{/if}} {{#if cell.linkDown}}link-down{{/if}}"
                {{#if (and @root.editable cell.reachable cell.name)}}data-action="learnTalent"{{/if}} data-index="{{cell.index}}"
                data-tooltip="{{cell.text}}">
-            <div class="cell-name">{{cell.name}}</div>
+            <div class="cell-name">{{#if cell.force}}<i class="fa-solid fa-jedi" data-tooltip="{{localize 'SWFFG.Item.forceTalent'}}"></i> {{/if}}{{cell.name}}</div>
             <div class="cell-meta"><span>{{localize cell.activationLabel}}</span><span class="cost">{{row.cost}}</span></div>
           </div>
           {{/each}}

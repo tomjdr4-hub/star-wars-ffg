@@ -282,3 +282,7 @@
 /* Choix de compétences (espèces) */
 .swffg-choice-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px 8px; max-height: 360px; overflow-y: auto; }
 .swffg-choice-grid label.checkbox { display: flex; align-items: center; gap: 4px; }
+
+/* Cases actives (cartouche rouge dans les livres) et talents de la Force */
+.swffg-sheet .tree-cell.active { border-left: 5px solid #8b1d22; }
+.swffg-sheet .tree-cell .fa-jedi { color: var(--swffg-accent); }
