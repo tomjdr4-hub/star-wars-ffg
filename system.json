@@ -2,7 +2,7 @@
   "id": "star-wars-ffg",
   "title": "Star Wars — Le jeu de rôle (FFG / Edge)",
   "description": "Système non officiel pour les trois jeux de rôle Star Wars narratifs : Aux Confins de l'Empire, L'Ère de la Rébellion et Force et Destinée. Dés narratifs, Obligation, Devoir, Moralité, arborescences de talents, pouvoirs de la Force, réserve de Destin.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "compatibility": {
     "minimum": "13",
     "verified": "14"
@@ -34,34 +34,112 @@
   "documentTypes": {
     "Actor": {
       "character": {
-        "htmlFields": ["biography", "notes"]
+        "htmlFields": [
+          "biography",
+          "notes"
+        ]
       },
       "nemesis": {
-        "htmlFields": ["abilities", "notes"]
+        "htmlFields": [
+          "abilities",
+          "notes"
+        ]
       },
       "rival": {
-        "htmlFields": ["abilities", "notes"]
+        "htmlFields": [
+          "abilities",
+          "notes"
+        ]
       },
       "minion": {
-        "htmlFields": ["abilities", "notes"]
+        "htmlFields": [
+          "abilities",
+          "notes"
+        ]
       },
       "vehicle": {
-        "htmlFields": ["description", "notes"]
+        "htmlFields": [
+          "description",
+          "notes"
+        ]
       }
     },
     "Item": {
-      "weapon": { "htmlFields": ["description"] },
-      "armor": { "htmlFields": ["description"] },
-      "gear": { "htmlFields": ["description"] },
-      "attachment": { "htmlFields": ["description"] },
-      "talent": { "htmlFields": ["description"] },
-      "forcepower": { "htmlFields": ["description"] },
-      "specialization": { "htmlFields": ["description"] },
-      "career": { "htmlFields": ["description"] },
-      "species": { "htmlFields": ["description"] },
-      "critical": { "htmlFields": ["description"] }
+      "weapon": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "armor": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "gear": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "attachment": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "talent": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "forcepower": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "specialization": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "career": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "species": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "critical": {
+        "htmlFields": [
+          "description"
+        ]
+      }
     }
   },
+  "packs": [
+    {
+      "name": "species",
+      "label": "Espèces",
+      "path": "packs/species",
+      "type": "Item",
+      "system": "star-wars-ffg",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    }
+  ],
+  "packFolders": [
+    {
+      "name": "Star Wars FFG",
+      "sorting": "m",
+      "color": "#b5892b",
+      "packs": [
+        "species"
+      ]
+    }
+  ],
   "primaryTokenAttribute": "wounds",
   "secondaryTokenAttribute": "strain",
   "socket": true,

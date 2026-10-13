@@ -7,6 +7,7 @@ cd "$(dirname "$0")/.."
 test -z "$(git status --porcelain)" || { echo "Arbre non propre, abandon"; exit 1; }
 grep -q "\"version\": \"${1#v}\"" system.json || { echo "La version de system.json ne correspond pas à $1"; exit 1; }
 npm test >/dev/null
+npm run build:packs >/dev/null
 git push -q origin main
 rm -f star-wars-ffg.zip
 python - star-wars-ffg.zip <<'PY'

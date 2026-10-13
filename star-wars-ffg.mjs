@@ -18,11 +18,12 @@ import { RollDialog, rollPool } from "./module/apps/roll-dialog.mjs";
 import { DestinyPool } from "./module/apps/destiny.mjs";
 import { applySessionEffects, clearSessionEffects, onRenderSessionCard, rollSessionStart } from "./module/apps/session.mjs";
 import { TEMPLATE_PARTIALS, registerHelpers } from "./module/helpers.mjs";
+import { applySpecies, registerSpeciesHooks } from "./module/species.mjs";
 
 Hooks.once("init", () => {
   game.swffg = {
     config: SWFFG, DicePool, NarrativeRoll, RollDialog, rollPool, DestinyPool,
-    rollSessionStart, applySessionEffects, clearSessionEffects,
+    rollSessionStart, applySessionEffects, clearSessionEffects, applySpecies,
     /** Ouvre la fenêtre de jet avec une réserve libre, ex. game.swffg.roll({ ability: 2, difficulty: 2 }). */
     roll: (pool = {}, options = {}) => RollDialog.prompt({ pool: new DicePool(pool), ...options })
   };
@@ -132,6 +133,7 @@ Hooks.once("ready", () => {
 });
 
 Hooks.on("renderChatMessageHTML", (message, html) => onRenderSessionCard(message, html));
+registerSpeciesHooks();
 
 /** Boutons de la barre d'outils des jetons : réserve de Destin et jet de début de session. */
 Hooks.on("getSceneControlButtons", controls => {

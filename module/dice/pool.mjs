@@ -43,6 +43,8 @@ export class DicePool {
     const pool = DicePool.fromCharacteristicAndRank(characteristic, skill.total ?? skill.rank ?? 0, difficulty);
     pool.boost += skill.boost ?? 0;
     pool.removeSetback = skill.removeSetback ?? 0;
+    // Avantages automatiques (Duros en Astrogation, Zabrak en Coercition…).
+    pool.results.advantage += skill.advantage ?? 0;
     return pool;
   }
 

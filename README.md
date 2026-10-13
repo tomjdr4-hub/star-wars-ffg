@@ -13,7 +13,7 @@ Dans Foundry : *Systèmes de jeu → Installer un système*, puis collez l'URL d
 https://github.com/tomjdr4-hub/star-wars-ffg/releases/latest/download/system.json
 ```
 
-## Ce qui est en place (v0.1)
+## Ce qui est en place (v0.2)
 
 - **Dés narratifs** : aptitude, maîtrise, difficulté, défi, fortune, infortune et Force.
   - Formules Foundry `da`, `dp`, `di`, `dc`, `db`, `dk`, `df` (par exemple `/r 2da + 1dp + 2di`).
@@ -46,6 +46,10 @@ https://github.com/tomjdr4-hub/star-wars-ffg/releases/latest/download/system.jso
   - seuils du côté obscur et des parangons ;
   - statut d'adepte du côté obscur conservé jusqu'au rachat.
 
+- **Compendium des espèces** : les 19 espèces des trois livres, avec leur texte. En déposant une espèce sur un
+  personnage, ses caractéristiques, son XP de départ, ses rangs et ses talents offerts sont appliqués
+  (une fenêtre s'ouvre pour les choix, par exemple Charme ou Tromperie).
+
 ## Les trois livres et leurs différences
 
 Le fichier [docs/ANALYSE.md](docs/ANALYSE.md) détaille ce que les livres partagent et ce qui les distingue :
@@ -63,8 +67,8 @@ Réglages du monde :
 
 ## Contenu
 
-Le système ne contient **aucun texte des livres**. Les compendiums (talents, spécialités, armes…)
-viendront dans un second temps.
+Les compendiums reprennent le texte des livres, pour un usage privé. Ils sont générés depuis `tools/data/`
+par `npm run build:packs`.
 
 ## Développement
 

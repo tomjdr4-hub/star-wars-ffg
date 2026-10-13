@@ -131,7 +131,9 @@
 .swffg-sheet .small { font-size: 0.85em; opacity: 0.85; }
 .swffg-sheet .hint { font-size: 0.85em; font-style: italic; opacity: 0.8; }
 .swffg-sheet label.inline { display: inline-flex; align-items: center; gap: 4px; font-size: 0.85em; }
-.swffg-sheet input.tiny { width: 40px; }
+.swffg-sheet input.tiny { width: 70px; }
+.swffg-sheet details.species-setup { margin-top: 8px; }
+.swffg-sheet details.species-setup summary { cursor: pointer; font-weight: bold; }
 
 /* Caractéristiques */
 .swffg-sheet .characteristics { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; margin: 6px 0; }
@@ -276,3 +278,7 @@
 /* Libellés dans les titres de section (ex. rang de Contribution) */
 .swffg-sheet h3 label.inline { font-size: var(--font-size-12, 12px); font-family: var(--font-body, inherit); font-weight: normal; }
 .swffg-sheet h3 label.inline input { width: 50px; }
+
+/* Choix de compétences (espèces) */
+.swffg-choice-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px 8px; max-height: 360px; overflow-y: auto; }
+.swffg-choice-grid label.checkbox { display: flex; align-items: center; gap: 4px; }

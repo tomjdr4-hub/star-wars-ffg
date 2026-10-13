@@ -7,7 +7,7 @@ const { ItemSheetV2 } = foundry.applications.sheets;
 const MODIFIER_TYPES = {
   woundThreshold: null, strainThreshold: null, soak: null, defenseMelee: null, defenseRanged: null,
   encumbranceThreshold: null, forceRating: null,
-  characteristic: "characteristic", skillRank: "skill", skillBoost: "skill", skillRemoveSetback: "skill", skillCareer: "skill"
+  characteristic: "characteristic", skillRank: "skill", skillBoost: "skill", skillRemoveSetback: "skill", skillCareer: "skill", skillAdvantage: "skill"
 };
 
 const BLANK = {
@@ -15,6 +15,11 @@ const BLANK = {
   modifiers: { type: "woundThreshold", key: "", value: 1 },
   upgrades: { type: "strength", text: "", cost: 5, row: 1, col: 1, width: 1, check: "", learned: false }
 };
+
+/** Cases à cocher de toutes les compétences, cochées selon une liste. */
+function skillBoxes(list) {
+  return Object.entries(SKILLS).map(([k, s]) => ({ key: k, label: s.label, checked: list.includes(k) }));
+}
 
 export class SWItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
   static DEFAULT_OPTIONS = {
@@ -68,9 +73,10 @@ export class SWItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
         keyChoices: MODIFIER_TYPES[m.type] === "skill" ? skillChoices : MODIFIER_TYPES[m.type] === "characteristic" ? charChoices : null
       })),
       upgrades: (system.upgrades ?? []).map((u, index) => ({ ...u, index })),
-      careerSkillBoxes: ("careerSkills" in system)
-        ? Object.entries(SKILLS).map(([k, s]) => ({ key: k, label: s.label, checked: system.careerSkills.includes(k) }))
-        : [],
+      careerSkillBoxes: ("careerSkills" in system) ? skillBoxes(system.careerSkills) : [],
+      startingSkillBoxes: item.type === "species" ? skillBoxes(system.startingSkills) : [],
+      choiceSkillBoxes: item.type === "species" ? skillBoxes(system.skillChoice.options) : [],
+      startingTalentsText: item.type === "species" ? system.startingTalents.join(", ") : "",
       treeRows: item.type === "specialization" ? [0, 1, 2, 3, 4].map(r => ({
         cost: 5 * (r + 1),
         cells: [0, 1, 2, 3].map(c => ({ ...system.talents[(r * 4) + c], index: (r * 4) + c, last: c === 3, bottom: r === 4 }))
@@ -99,16 +105,23 @@ export class SWItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
         this.item.update({ [`system.${path}`]: arr });
       });
     }
-    // Compétences de carrière : cases à cocher.
-    for ( const box of html.querySelectorAll("[data-career-skill]") ) {
+    // Listes de compétences (carrière, rangs offerts, choix) : cases à cocher.
+    for ( const box of html.querySelectorAll("[data-skill-list]") ) {
       box.addEventListener("change", event => {
         event.stopPropagation();
-        const set = new Set(this.item.system.careerSkills);
-        if ( box.checked ) set.add(box.dataset.careerSkill);
-        else set.delete(box.dataset.careerSkill);
-        this.item.update({ "system.careerSkills": [...set] });
+        const path = box.dataset.skillList;
+        const set = new Set(foundry.utils.getProperty(this.item.system, path));
+        if ( box.checked ) set.add(box.dataset.skill);
+        else set.delete(box.dataset.skill);
+        this.item.update({ [`system.${path}`]: [...set] });
       });
     }
+    // Talents offerts : liste séparée par des virgules.
+    html.querySelector("[data-talent-list]")?.addEventListener("change", event => {
+      event.stopPropagation();
+      const names = event.target.value.split(",").map(n => n.trim()).filter(Boolean);
+      this.item.update({ "system.startingTalents": names });
+    });
     // Glisser un talent du compendium sur une case de l'arborescence.
     for ( const cell of html.querySelectorAll(".tree-cell[data-index]") ) {
       cell.addEventListener("dragover", ev => ev.preventDefault());

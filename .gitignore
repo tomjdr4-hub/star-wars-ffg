@@ -12,3 +12,4 @@ desktop.ini
 *.xlsx
 tools/.cache/
 __pycache__/
+packs/

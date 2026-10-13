@@ -95,9 +95,37 @@
     <h3>{{localize (ifThen isType.career "SWFFG.Item.careerSkills" "SWFFG.Item.bonusCareerSkills")}} ({{system.careerSkills.length}})</h3>
     <div class="checkbox-grid">
       {{#each careerSkillBoxes as |b|}}
-      <label><input type="checkbox" data-career-skill="{{b.key}}" {{checked b.checked}} {{#unless @root.editable}}disabled{{/unless}}> {{localize b.label}}</label>
+      <label><input type="checkbox" data-skill-list="careerSkills" data-skill="{{b.key}}" {{checked b.checked}} {{#unless @root.editable}}disabled{{/unless}}> {{localize b.label}}</label>
       {{/each}}
     </div>
+    {{/if}}
+
+    {{#if isType.species}}
+    <h3>{{localize "SWFFG.Sheet.description"}}</h3>
+    {{> "swffg-editor" field="description" value=system.description enriched=enrichedDescription uuid=item.uuid editable=editable}}
+    <details class="species-setup">
+    <summary>{{localize "SWFFG.Species.setup"}}</summary>
+    <h3>{{localize "SWFFG.Species.startingSkills"}}</h3>
+    <div class="checkbox-grid">
+      {{#each startingSkillBoxes as |b|}}
+      <label><input type="checkbox" data-skill-list="startingSkills" data-skill="{{b.key}}" {{checked b.checked}} {{#unless @root.editable}}disabled{{/unless}}> {{localize b.label}}</label>
+      {{/each}}
+    </div>
+    <h3>{{localize "SWFFG.Species.skillChoice"}}</h3>
+    <div class="details-grid">
+      <label>{{localize "SWFFG.Species.skillChoiceCount"}} <input type="number" name="system.skillChoice.count" value="{{system.skillChoice.count}}" min="0"></label>
+      <label class="checkbox"><input type="checkbox" name="system.skillChoice.nonCareer" {{checked system.skillChoice.nonCareer}}> {{localize "SWFFG.Species.nonCareer"}}</label>
+    </div>
+    <div class="checkbox-grid">
+      {{#each choiceSkillBoxes as |b|}}
+      <label><input type="checkbox" data-skill-list="skillChoice.options" data-skill="{{b.key}}" {{checked b.checked}} {{#unless @root.editable}}disabled{{/unless}}> {{localize b.label}}</label>
+      {{/each}}
+    </div>
+    <div class="details-grid">
+      <label class="wide">{{localize "SWFFG.Species.startingTalents"}} <input type="text" data-talent-list value="{{startingTalentsText}}"></label>
+      <label class="checkbox"><input type="checkbox" name="system.noForce" {{checked system.noForce}}> {{localize "SWFFG.Species.noForce"}}</label>
+    </div>
+    </details>
     {{/if}}
 
     {{#if isType.weapon}}
@@ -179,7 +207,9 @@
     </table>
     {{/if}}
 
+    {{#unless isType.species}}
     <h3>{{localize "SWFFG.Sheet.description"}}</h3>
     {{> "swffg-editor" field="description" value=system.description enriched=enrichedDescription uuid=item.uuid editable=editable}}
+    {{/unless}}
   </div>
 </div>

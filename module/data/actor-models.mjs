@@ -13,7 +13,7 @@ export function collectModifiers(actor) {
   const totals = {
     woundThreshold: 0, strainThreshold: 0, soak: 0, defenseMelee: 0, defenseRanged: 0,
     encumbranceThreshold: 0, forceRating: 0,
-    characteristic: {}, skillRank: {}, skillBoost: {}, skillRemoveSetback: {}, skillCareer: {}
+    characteristic: {}, skillRank: {}, skillBoost: {}, skillRemoveSetback: {}, skillCareer: {}, skillAdvantage: {}
   };
   for ( const item of actor.items ) {
     const sys = item.system;
@@ -37,6 +37,7 @@ function prepareSkills(system, mods, careerSkills, characteristics) {
     skill.isCareer = skill.career || careerSkills.has(key) || !!mods.skillCareer[key];
     skill.boost = mods.skillBoost[key] ?? 0;
     skill.removeSetback = mods.skillRemoveSetback[key] ?? 0;
+    skill.advantage = mods.skillAdvantage[key] ?? 0;
     const charValue = characteristics[skill.characteristic]?.total ?? 0;
     skill.pool = {
       proficiency: Math.min(charValue, skill.total),

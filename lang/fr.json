@@ -390,7 +390,8 @@
       "skillRank": "Rang de compétence",
       "skillBoost": "Dé de fortune sur une compétence",
       "skillRemoveSetback": "Retirer un dé d'infortune sur une compétence",
-      "skillCareer": "Compétence de carrière"
+      "skillCareer": "Compétence de carrière",
+      "skillAdvantage": "Avantage automatique sur une compétence"
     },
     "Setting": {
       "booksHint": "Détermine les compétences propres à un livre (Stratégie, Sabre laser) affichées par défaut sur les fiches.",
@@ -406,6 +407,20 @@
     "Notify": {
       "noSkill": "Compétence inconnue : {skill}.",
       "gmOnly": "Seul le MJ peut faire cela."
+    },
+    "Species": {
+      "startingSkills": "Rangs de compétence offerts",
+      "skillChoice": "Choix de compétences",
+      "skillChoiceCount": "Nombre de rangs à choisir",
+      "nonCareer": "Hors carrière uniquement",
+      "startingTalents": "Talents offerts",
+      "noForce": "Ne peut pas être sensible à la Force",
+      "applyTitle": "Appliquer l'espèce",
+      "applyConfirm": "Appliquer les caractéristiques, l'XP de départ, les rangs et les talents de {species} à {actor} ? (Les caractéristiques actuelles seront remplacées.)",
+      "chooseSkills": "Choisissez {count} compétence(s) pour {species} (1 rang chacune) :",
+      "applied": "{species} appliqué à {actor}.",
+      "tooMany": "Choisissez exactement {count} compétence(s).",
+      "setup": "Réglages de création (rangs, choix, talents)"
     }
   }
 }

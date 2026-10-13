@@ -390,7 +390,8 @@
       "skillRank": "Skill rank",
       "skillBoost": "Boost die on a skill",
       "skillRemoveSetback": "Remove a setback die on a skill",
-      "skillCareer": "Career skill"
+      "skillCareer": "Career skill",
+      "skillAdvantage": "Automatic advantage on a skill"
     },
     "Setting": {
       "booksHint": "Determines which book-specific skills (Warfare, Lightsaber) are shown on sheets by default.",
@@ -406,6 +407,20 @@
     "Notify": {
       "noSkill": "Unknown skill: {skill}.",
       "gmOnly": "Only the GM can do that."
+    },
+    "Species": {
+      "startingSkills": "Free skill ranks",
+      "skillChoice": "Skill choice",
+      "skillChoiceCount": "Ranks to choose",
+      "nonCareer": "Non-career only",
+      "startingTalents": "Free talents",
+      "noForce": "Cannot be Force sensitive",
+      "applyTitle": "Apply species",
+      "applyConfirm": "Apply the characteristics, starting XP, ranks and talents of {species} to {actor}? (Current characteristics will be replaced.)",
+      "chooseSkills": "Choose {count} skill(s) for {species} (1 rank each):",
+      "applied": "{species} applied to {actor}.",
+      "tooMany": "Choose exactly {count} skill(s).",
+      "setup": "Creation settings (ranks, choices, talents)"
     }
   }
 }

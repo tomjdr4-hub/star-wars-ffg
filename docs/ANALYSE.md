@@ -154,8 +154,22 @@ des écarts de texte. Exemple :
 |---|---|---|
 | Bothan, Droïde, Gand, Humain, Rodien, Trandoshan, Twi'lek, Wookie | Bothan, Droïde, Duros, Gran, Humain, Ithorien, Mon Calamari, Sullustéen | Céréen, Humain, Kel Dor, Mirialan, Nautolan, Togruta, Twi'lek, Zabrak |
 
-Les Bothans, Droïdes, Humains et Twi'leks apparaissent dans deux livres ou plus. Leurs profils devront être
-comparés case par case au moment de remplir les compendiums.
+Les Bothans, Droïdes, Humains et Twi'leks apparaissent dans deux livres ou plus. Leurs profils ont été comparés
+case par case : **caractéristiques, seuils, XP et capacités sont identiques** d'un livre à l'autre.
+Seules différences :
+- Le texte d'ambiance propre à chaque gamme (« La vie dans la Bordure », « Au sein de l'Alliance »,
+  « Perception de la Force »).
+- La capacité environnementale du Twi'lek, qui n'est nommée (« Habitants du désert ») que dans F&D.
+- Les renvois de pages des droïdes (implants, réparation).
+
+Le compendium **Espèces** contient donc un seul objet par espèce (19 au total). Il reprend le texte du premier livre
+et les paragraphes propres à chaque gamme. Les capacités mécaniques sont automatisées :
+- rangs offerts et choix de compétences ;
+- talents de départ ;
+- avantage automatique (Duros en Astrogation, Zabrak en Coercition) ;
+- Connaissances en compétences de carrière pour le Céréen.
+
+Les capacités conditionnelles (rage wookie, régénération, vision supérieure…) restent en texte.
 
 ### 2.7 Étape 10 de la création
 
@@ -165,8 +179,8 @@ comparés case par case au moment de remplir les compendiums.
 
 ## 3. Reste à faire
 
-1. **Compendiums**. Espèces, carrières, spécialités (arborescences complètes), talents, pouvoirs, armes, armures,
-   matériel, véhicules et adversaires.
+1. **Compendiums**. Espèces : fait. Restent carrières, spécialités (arborescences complètes), talents, pouvoirs,
+   armes, armures, matériel, véhicules et adversaires.
    - Les PDF fournis sont des scans : l'OCR est utilisable pour retrouver les règles, mais les tableaux chiffrés
      doivent être relus sur l'image.
    - Les textes des livres sont protégés : les compendiums complets doivent rester privés

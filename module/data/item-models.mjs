@@ -211,6 +211,18 @@ export class SpeciesData extends BaseItemData {
       strainBase: int(10, { min: 0 }),
       startingXp: int(100, { min: 0 }),
       abilities: str(""),
+      // Rangs offerts à la création (rang 2 maximum à la création dans ces compétences).
+      startingSkills: new ArrayField(new StringField({ required: true, choices: Object.keys(SKILLS) })),
+      // Choix : « 1 rang en Charme ou en Tromperie » (options), « 1 rang dans deux compétences hors carrière » (options vides).
+      skillChoice: new SchemaField({
+        count: int(0, { min: 0 }),
+        options: new ArrayField(new StringField({ required: true, choices: Object.keys(SKILLS) })),
+        nonCareer: bool(false)
+      }),
+      // Talents offerts (noms ; recherchés dans les compendiums de talents s'ils existent).
+      startingTalents: new ArrayField(new StringField({ required: true, blank: false })),
+      // Les droïdes ne peuvent pas être sensibles à la Force.
+      noForce: bool(false),
       modifiers: modifiersField()
     };
   }
