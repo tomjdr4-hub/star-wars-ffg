@@ -51,7 +51,11 @@ export class NarrativeRoll extends Roll {
   /** Succès nets, puis avantages nets en centièmes (départage de l'initiative). */
   _narrativeTotal() {
     const s = this.symbols;
-    return (s.success + s.triumph - s.failure - s.despair) + ((s.advantage - s.threat) / 100);
+    const success = s.success + s.triumph - s.failure - s.despair;
+    const advantage = s.advantage - s.threat;
+    // Initiative : succès nets en partie entière, avantages nets décalés de 50 en centièmes (toujours croissant).
+    if ( this.options.initiative ) return encodeInitiative(success, advantage);
+    return success + (advantage / 100);
   }
 
   /** @override */
@@ -123,4 +127,15 @@ const SYMBOL_NAMES = { s: "success", a: "advantage", t: "triumph", f: "failure",
 function symbolList(net, force) {
   const keys = force ? ["light", "dark"] : ["success", "failure", "advantage", "threat", "triumph", "despair", "light", "dark"];
   return keys.filter(k => net[k] > 0).map(k => ({ key: k, count: net[k], icons: Array(Math.min(net[k], 12)).fill(k) }));
+}
+
+/** Code une initiative (succès, avantages nets) en un nombre triable ; avantages bornés à ±49. */
+export function encodeInitiative(success, advantage) {
+  return success + ((Math.clamp(advantage, -49, 49) + 50) / 100);
+}
+
+/** Décode une valeur d'initiative en { success, advantage }. */
+export function decodeInitiative(value) {
+  const success = Math.floor(value + 1e-9);
+  return { success, advantage: Math.round((value - success) * 100) - 50 };
 }

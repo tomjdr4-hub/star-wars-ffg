@@ -2,7 +2,7 @@
   "id": "star-wars-ffg",
   "title": "Star Wars — Le jeu de rôle (FFG / Edge)",
   "description": "Système non officiel pour les trois jeux de rôle Star Wars narratifs : Aux Confins de l'Empire, L'Ère de la Rébellion et Force et Destinée. Dés narratifs, Obligation, Devoir, Moralité, arborescences de talents, pouvoirs de la Force, réserve de Destin.",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "compatibility": {
     "minimum": "13",
     "verified": "14"

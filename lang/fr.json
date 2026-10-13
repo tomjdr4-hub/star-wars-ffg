@@ -428,7 +428,11 @@
       "title": "Initiative : Vigilance ou Calme ?",
       "hint": "Calme si le personnage s'attendait au combat, Vigilance s'il est pris au dépourvu.",
       "allVigilance": "Tous en Vigilance",
-      "allCool": "Tous en Calme"
+      "allCool": "Tous en Calme",
+      "slotPC": "PJ",
+      "slotNPC": "PNJ",
+      "claim": "Prendre cet emplacement (agir maintenant)",
+      "cannotClaim": "Ce combattant ne peut pas prendre l'emplacement en cours (autre camp, ou il a déjà agi ce round)."
     }
   }
 }

@@ -428,7 +428,11 @@
       "title": "Initiative: Vigilance or Cool?",
       "hint": "Cool if the character expected the fight, Vigilance if caught by surprise.",
       "allVigilance": "All Vigilance",
-      "allCool": "All Cool"
+      "allCool": "All Cool",
+      "slotPC": "PC",
+      "slotNPC": "NPC",
+      "claim": "Take this slot (act now)",
+      "cannotClaim": "This combatant cannot take the current slot (other side, or already acted this round)."
     }
   }
 }

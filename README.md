@@ -32,7 +32,12 @@ https://github.com/tomjdr4-hub/star-wars-ffg/releases/latest/download/system.jso
 - **Adversaires** : rival, némésis et groupes de sbires (compétences de groupe, membres restants).
 - **Vaisseaux et véhicules** : profil complet, défense par arc, armes (le test est fait par le personnage du joueur).
 - **Armes** : attributs, dégâts et critique déclenché affichés dans le chat.
-- **Initiative** : une fenêtre demande, pour chaque combattant, Vigilance ou Calme ; classement par succès puis avantages.
+- **Initiative et emplacements** (chapitre VI) :
+  - une fenêtre demande, pour chaque combattant, Vigilance ou Calme ;
+  - les résultats forment des emplacements PJ et PNJ, classés par succès puis avantages (égalité : PJ d'abord) ;
+  - à chaque emplacement, un combattant du même camp qui n'a pas encore agi peut le prendre (bouton main dans le
+    tracker) ; le combattant prévu garde l'emplacement libéré ;
+  - le tracker affiche l'initiative en succès et avantages.
 - **Réserve de Destin** partagée :
   - les joueurs retournent un point lumineux, le MJ un point obscur ;
   - génération en début de session avec les effets de Moralité.

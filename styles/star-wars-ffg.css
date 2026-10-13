@@ -293,3 +293,14 @@
 .star-wars-ffg.initiative-dialog .swffg-init-list { display: flex; flex-direction: column; gap: 4px; max-height: 400px; overflow-y: auto; }
 .star-wars-ffg.initiative-dialog .swffg-init-row { display: grid; grid-template-columns: 28px 1fr 150px; gap: 8px; align-items: center; }
 .star-wars-ffg.initiative-dialog .swffg-init-row img { border: none; }
+
+/* Tracker : emplacements PJ / PNJ */
+.combat-tracker .swffg-slot-badge {
+  display: inline-block; align-self: flex-start; width: fit-content; margin-right: 4px; padding: 0 4px; border-radius: 3px;
+  font-size: 0.7em; font-weight: bold; vertical-align: middle;
+}
+.combat-tracker .swffg-slot-badge.pc { background: #2a7fb8; color: #fff; }
+.combat-tracker .swffg-slot-badge.npc { background: #8b1d22; color: #fff; }
+.combat-tracker .swffg-init-value { white-space: nowrap; font-size: 0.9em; }
+.combat-tracker .swffg-init-value .swffg-symbol { margin: 0 2px 0 1px; }
+.combat-tracker .swffg-claim { color: var(--swffg-accent); }

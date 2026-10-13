@@ -12,7 +12,7 @@ import {
   TalentData, WeaponData
 } from "./module/data/item-models.mjs";
 import { SWActor } from "./module/documents/actor.mjs";
-import { SWCombat, SWCombatant } from "./module/documents/combat.mjs";
+import { SWCombat, SWCombatant, onRenderCombatTracker } from "./module/documents/combat.mjs";
 import { AdversarySheet, CharacterSheet, VehicleSheet } from "./module/sheets/actor-sheets.mjs";
 import { SWItemSheet } from "./module/sheets/item-sheet.mjs";
 import { RollDialog, rollPool } from "./module/apps/roll-dialog.mjs";
@@ -131,11 +131,15 @@ function rerenderSheets() {
 }
 
 Hooks.once("ready", () => {
-  game.socket.on(`system.${SYSTEM_ID}`, data => DestinyPool.onSocket(data));
+  game.socket.on(`system.${SYSTEM_ID}`, data => {
+    DestinyPool.onSocket(data);
+    SWCombat.onSocket(data);
+  });
 });
 
 Hooks.on("renderChatMessageHTML", (message, html) => onRenderSessionCard(message, html));
 registerSpeciesHooks();
+Hooks.on("renderCombatTracker", onRenderCombatTracker);
 
 /** Boutons de la barre d'outils des jetons : réserve de Destin et jet de début de session. */
 Hooks.on("getSceneControlButtons", controls => {
