@@ -436,7 +436,32 @@
       "quick": "Réaction éclair : stress",
       "quickHint": "Subir autant de stress que de succès ajoutés au test (au maximum le rang de Réaction éclair). Les rivaux et sbires subissent des blessures à la place.",
       "quickApplied": "Réaction éclair : +{n} succès",
-      "noVehicle": "{name} est un vaisseau ou un véhicule : il n'a pas d'initiative. Ajoutez au combat les membres de son équipage (pilote, artilleurs…), qui agissent chacun à leur emplacement (chapitre VII)."
+      "noVehicle": "{name} est un vaisseau ou un véhicule : il n'a pas d'initiative. Ajoutez au combat les membres de son équipage (pilote, artilleurs…), qui agissent chacun à leur emplacement (chapitre VII).",
+      "openSlot": "Emplacement libre",
+      "whoActs": "Qui agit ?",
+      "acting": "Agit sur cet emplacement"
+    },
+    "Recap": {
+      "vs": "contre",
+      "success": "{n} succès",
+      "successes": "{n} succès",
+      "failure": "{n} échec",
+      "failures": "{n} échecs",
+      "withTriumph": "(dont {n} triomphe)",
+      "withDespair": "(dont {n} désastre)",
+      "netSuccess": "{n} succès net",
+      "netSuccesses": "{n} succès nets",
+      "netFailure": "{n} échec net",
+      "netFailures": "{n} échecs nets",
+      "advantage": "{n} avantage",
+      "advantages": "{n} avantages",
+      "threat": "{n} menace",
+      "threats": "{n} menaces",
+      "netAdvantage": "{n} avantage net",
+      "netAdvantages": "{n} avantages nets",
+      "netThreat": "{n} menace nette",
+      "netThreats": "{n} menaces nettes",
+      "cancelled": "s'annulent"
     }
   }
 }

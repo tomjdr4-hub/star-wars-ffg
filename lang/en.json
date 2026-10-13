@@ -436,7 +436,32 @@
       "quick": "Quick Reflexes: strain",
       "quickHint": "Suffer as much strain as successes added (up to Quick Reflexes rank). Rivals and minions suffer wounds instead.",
       "quickApplied": "Quick Reflexes: +{n} successes",
-      "noVehicle": "{name} is a starship or vehicle: it has no initiative. Add its crew (pilot, gunners…) to the combat; each acts in their own slot (chapter VII)."
+      "noVehicle": "{name} is a starship or vehicle: it has no initiative. Add its crew (pilot, gunners…) to the combat; each acts in their own slot (chapter VII).",
+      "openSlot": "Open slot",
+      "whoActs": "Who acts?",
+      "acting": "Acting in this slot"
+    },
+    "Recap": {
+      "vs": "vs",
+      "success": "{n} success",
+      "successes": "{n} successes",
+      "failure": "{n} failure",
+      "failures": "{n} failures",
+      "withTriumph": "(incl. {n} triumph)",
+      "withDespair": "(incl. {n} despair)",
+      "netSuccess": "{n} net success",
+      "netSuccesses": "{n} net successes",
+      "netFailure": "{n} net failure",
+      "netFailures": "{n} net failures",
+      "advantage": "{n} advantage",
+      "advantages": "{n} advantages",
+      "threat": "{n} threat",
+      "threats": "{n} threats",
+      "netAdvantage": "{n} net advantage",
+      "netAdvantages": "{n} net advantages",
+      "netThreat": "{n} net threat",
+      "netThreats": "{n} net threats",
+      "cancelled": "cancel out"
     }
   }
 }

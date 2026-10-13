@@ -17,7 +17,7 @@ https://github.com/tomjdr4-hub/star-wars-ffg/releases/latest/download/system.jso
 
 - **Dés narratifs** : aptitude, maîtrise, difficulté, défi, fortune, infortune et Force.
   - Formules Foundry `da`, `dp`, `di`, `dc`, `db`, `dk`, `df` (par exemple `/r 2da + 1dp + 2di`).
-  - Résultat net calculé automatiquement, carte de chat détaillée.
+  - Carte de chat détaillée : faces, récapitulatif « succès contre échecs » et « avantages contre menaces », résultat net.
 - **Fenêtre de jet** :
   - ajout et retrait de dés, amélioration et dégradation ;
   - choix de la difficulté ;
@@ -35,8 +35,8 @@ https://github.com/tomjdr4-hub/star-wars-ffg/releases/latest/download/system.jso
 - **Initiative et emplacements** (chapitre VI) :
   - une fenêtre demande, pour chaque combattant, Vigilance ou Calme ;
   - les résultats forment des emplacements PJ et PNJ, classés par succès puis avantages (égalité : PJ d'abord) ;
-  - à chaque emplacement, un combattant du même camp qui n'a pas encore agi peut le prendre (bouton main dans le
-    tracker) ; le combattant prévu garde l'emplacement libéré ;
+  - une fois le combat commencé, le tracker affiche des emplacements : ceux à venir sont anonymes, l'emplacement en
+    cours propose les combattants du camp qui n'ont pas encore agi (« Qui agit ? »), ceux déjà joués montrent qui les a pris ;
   - le tracker affiche l'initiative en succès et avantages ;
   - Réaction éclair : stress subi contre des succès d'initiative, choisi dans la fenêtre ;
   - les vaisseaux n'ont pas d'initiative : ce sont les membres d'équipage qui sont ajoutés au combat (chapitre VII).

@@ -307,3 +307,25 @@
 .star-wars-ffg.initiative-dialog .swffg-init-row > span { display: flex; flex-direction: column; }
 .star-wars-ffg.initiative-dialog .swffg-init-quick { font-size: 0.8em; display: flex; align-items: center; gap: 4px; }
 .star-wars-ffg.initiative-dialog .swffg-init-quick input { width: 40px; height: 20px; }
+
+/* Tracker : emplacements à venir, en cours, joués */
+.combat-tracker li.swffg-slot { flex-wrap: wrap; }
+.combat-tracker li.swffg-slot-open .token-image { opacity: 0.45; }
+.combat-tracker li.swffg-slot-open .name { font-style: italic; opacity: 0.75; }
+.combat-tracker li.swffg-slot-done { opacity: 0.55; }
+.combat-tracker .swffg-slot-chooser { flex: 0 0 100%; display: flex; flex-wrap: wrap; align-items: center; gap: 4px; padding: 4px 0 2px 4px; }
+.combat-tracker .swffg-slot-chooser-label { font-size: 0.8em; opacity: 0.8; margin-right: 2px; }
+.combat-tracker .swffg-slot-chip {
+  display: inline-flex; align-items: center; gap: 4px; width: auto; height: 24px; padding: 0 6px 0 2px;
+  font-size: 0.8em; border-radius: 12px; line-height: 1;
+}
+.combat-tracker .swffg-slot-chip img { width: 20px; height: 20px; border: none; border-radius: 50%; }
+.combat-tracker .swffg-slot-chip.active { border-color: var(--swffg-accent); box-shadow: 0 0 4px var(--swffg-accent); }
+
+/* Récapitulatif des jets */
+.swffg-roll .swffg-recap { font-size: 0.85em; margin: 2px 0; display: flex; flex-direction: column; gap: 2px; }
+.swffg-roll .swffg-recap .recap-line { display: flex; flex-wrap: wrap; column-gap: 4px; align-items: baseline; }
+.swffg-roll .swffg-recap .vs { opacity: 0.6; }
+.swffg-roll .swffg-recap .net { font-weight: bold; margin-left: auto; }
+.swffg-roll .swffg-recap .positive .net { color: var(--swffg-success); }
+.swffg-roll .swffg-recap .negative .net { color: var(--swffg-failure); }

@@ -110,6 +110,7 @@ export class NarrativeRoll extends Roll {
       forcePoints: this.forcePoints,
       darkSide: !!this.options.darkSide,
       showOutcome: !this.options.forcePower && !this.options.noOutcome,
+      recap: isPrivate ? null : recapOf(this.symbols),
       symbolsList: isPrivate ? [] : symbolList(net, !!this.options.forcePower),
       weapon: weapon ? {
         ...weapon,
@@ -138,4 +139,30 @@ export function encodeInitiative(success, advantage) {
 export function decodeInitiative(value) {
   const success = Math.floor(value + 1e-9);
   return { success, advantage: Math.round((value - success) * 100) - 50 };
+}
+
+/**
+ * Récapitulatif d'un jet : succès bruts contre échecs bruts, avantages contre menaces.
+ * Un triomphe compte aussi comme un succès, un désastre comme un échec (chapitre I).
+ */
+function recapOf(s) {
+  const t = (key, n) => game.i18n.format(`SWFFG.Recap.${key}`, { n });
+  const success = s.success + s.triumph;
+  const failure = s.failure + s.despair;
+  const netS = success - failure;
+  const netA = s.advantage - s.threat;
+  return {
+    success: t(success > 1 ? "successes" : "success", success)
+      + (s.triumph ? ` ${game.i18n.format("SWFFG.Recap.withTriumph", { n: s.triumph })}` : ""),
+    failure: t(failure > 1 ? "failures" : "failure", failure)
+      + (s.despair ? ` ${game.i18n.format("SWFFG.Recap.withDespair", { n: s.despair })}` : ""),
+    netSuccess: netS > 0 ? t(netS > 1 ? "netSuccesses" : "netSuccess", netS)
+      : netS < 0 ? t(-netS > 1 ? "netFailures" : "netFailure", -netS) : game.i18n.localize("SWFFG.Recap.cancelled"),
+    succeeded: netS > 0,
+    advantage: t(s.advantage > 1 ? "advantages" : "advantage", s.advantage),
+    threat: t(s.threat > 1 ? "threats" : "threat", s.threat),
+    netAdvantage: netA > 0 ? t(netA > 1 ? "netAdvantages" : "netAdvantage", netA)
+      : netA < 0 ? t(-netA > 1 ? "netThreats" : "netThreat", -netA) : game.i18n.localize("SWFFG.Recap.cancelled"),
+    advantageClass: netA > 0 ? "positive" : netA < 0 ? "negative" : ""
+  };
 }

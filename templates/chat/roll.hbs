@@ -8,6 +8,18 @@
     {{#each symbolsList as |s|}}<span class="net-symbol {{s.key}}">{{#each s.icons as |i|}}{{swffgSymbol i}}{{/each}}{{#if (gt s.count 12)}} ×{{s.count}}{{/if}}</span>{{/each}}
   </div>
   {{#if showOutcome}}
+  {{#if recap}}
+  <div class="swffg-recap">
+    <div class="recap-line {{#if recap.succeeded}}positive{{else}}negative{{/if}}">
+      <span>{{swffgSymbol "success"}} {{recap.success}}</span> <span class="vs">{{localize "SWFFG.Recap.vs"}}</span>
+      <span>{{swffgSymbol "failure"}} {{recap.failure}}</span> <span class="net">→ {{recap.netSuccess}}</span>
+    </div>
+    <div class="recap-line {{recap.advantageClass}}">
+      <span>{{swffgSymbol "advantage"}} {{recap.advantage}}</span> <span class="vs">{{localize "SWFFG.Recap.vs"}}</span>
+      <span>{{swffgSymbol "threat"}} {{recap.threat}}</span> <span class="net">→ {{recap.netAdvantage}}</span>
+    </div>
+  </div>
+  {{/if}}
   <div class="outcome {{#if net.succeeded}}success{{else}}failure{{/if}}">
     {{#if net.succeeded}}{{localize "SWFFG.Result.succeeded"}}{{else}}{{localize "SWFFG.Result.failed"}}{{/if}}
     {{#if net.success}} · {{net.success}} {{swffgSymbol "success"}}{{/if}}

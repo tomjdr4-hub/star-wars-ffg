@@ -129,51 +129,93 @@ export class SWCombatant extends Combatant {
 }
 
 /**
- * Tracker : affichage des emplacements PJ / PNJ, de l'initiative en succès / avantages,
- * et bouton « Prendre cet emplacement » pour les combattants du camp en cours qui n'ont pas encore agi.
+ * Tracker, une fois le combat commencé : il affiche des emplacements et non des personnages (chapitre VI).
+ *  - emplacements à venir dans le round : « Emplacement PJ / PNJ » et leur résultat, sans nom ;
+ *  - emplacement en cours : les combattants du camp qui n'ont pas encore agi ce round, à choisir d'un clic ;
+ *  - emplacements déjà joués : le combattant qui les a occupés.
+ * Avant le début du combat, chaque ligne montre le combattant et son résultat.
  */
 export function onRenderCombatTracker(app, html) {
   const combat = app.viewed;
   if ( !combat ) return;
-  const claimants = new Set(combat.claimants.map(c => c.id));
+  const started = combat.started && (combat.turn !== null);
+  const current = started ? combat.combatant : null;
+  const candidates = current ? [current, ...combat.claimants] : [];
   for ( const li of html.querySelectorAll("li.combatant[data-combatant-id]") ) {
     const c = combat.combatants.get(li.dataset.combatantId);
     if ( !c ) continue;
     const side = combatantSide(c);
+    const index = combat.turns.indexOf(c);
     li.classList.add("swffg-slot", `swffg-slot-${side}`);
+    const slotLabel = game.i18n.localize(side === "pc" ? "SWFFG.Initiative.slotPC" : "SWFFG.Initiative.slotNPC");
 
     const name = li.querySelector(".token-name");
     if ( name && !li.querySelector(".swffg-slot-badge") ) {
       const badge = document.createElement("span");
       badge.className = `swffg-slot-badge ${side}`;
-      badge.textContent = game.i18n.localize(side === "pc" ? "SWFFG.Initiative.slotPC" : "SWFFG.Initiative.slotNPC");
+      badge.textContent = slotLabel;
       name.prepend(badge);
     }
 
     const init = li.querySelector(".token-initiative > span");
     if ( init && Number.isNumeric(c.initiative) ) {
-      const { success, advantage } = decodeInitiative(c.initiative);
-      const s = success >= 0 ? `${success}${symbolHTML("success")}` : `${-success}${symbolHTML("failure")}`;
-      const a = advantage > 0 ? ` ${advantage}${symbolHTML("advantage")}` : advantage < 0 ? ` ${-advantage}${symbolHTML("threat")}` : "";
-      init.innerHTML = `${s}${a}`;
+      init.innerHTML = initiativeHTML(c.initiative);
       init.classList.add("swffg-init-value");
     }
 
-    if ( claimants.has(c.id) && (game.user.isGM || c.isOwner) ) {
-      const controls = li.querySelector(".combatant-controls");
-      const btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "inline-control combatant-control icon fa-solid fa-hand swffg-claim";
-      btn.dataset.tooltip = game.i18n.localize("SWFFG.Initiative.claim");
-      btn.setAttribute("aria-label", btn.dataset.tooltip);
-      btn.addEventListener("click", event => {
-        event.preventDefault();
-        event.stopPropagation();
-        combat.claimSlot(c.id);
-      });
-      controls?.prepend(btn);
+    if ( !started || !Number.isNumeric(c.initiative) ) continue;
+
+    // Emplacement à venir : anonyme.
+    if ( index > combat.turn ) {
+      li.classList.add("swffg-slot-open");
+      li.removeAttribute("data-action");
+      const img = li.querySelector(".token-image");
+      if ( img ) img.src = side === "pc" ? "icons/svg/mystery-man.svg" : "icons/svg/hazard.svg";
+      const strong = li.querySelector(".token-name .name");
+      if ( strong ) strong.textContent = game.i18n.localize("SWFFG.Initiative.openSlot");
+      li.querySelector(".combatant-controls")?.replaceChildren();
+      continue;
     }
+
+    // Emplacement en cours : choix du combattant qui agit.
+    if ( index === combat.turn ) {
+      li.classList.add("swffg-slot-current");
+      const chooser = document.createElement("div");
+      chooser.className = "swffg-slot-chooser";
+      const label = document.createElement("span");
+      label.className = "swffg-slot-chooser-label";
+      label.textContent = game.i18n.localize("SWFFG.Initiative.whoActs");
+      chooser.append(label);
+      for ( const cand of candidates ) {
+        const can = game.user.isGM || cand.isOwner;
+        const chip = document.createElement("button");
+        chip.type = "button";
+        chip.className = `swffg-slot-chip ${cand === current ? "active" : ""}`;
+        chip.disabled = !can;
+        chip.dataset.tooltip = cand === current ? game.i18n.localize("SWFFG.Initiative.acting") : game.i18n.localize("SWFFG.Initiative.claim");
+        chip.innerHTML = `<img src="${cand.img}" alt=""><span>${foundry.utils.escapeHTML(cand.name)}</span>`;
+        chip.addEventListener("click", event => {
+          event.preventDefault();
+          event.stopPropagation();
+          if ( cand !== current ) combat.claimSlot(cand.id);
+        });
+        chooser.append(chip);
+      }
+      if ( candidates.length > 1 ) li.append(chooser);
+      continue;
+    }
+
+    // Emplacement déjà joué ce round.
+    li.classList.add("swffg-slot-done");
   }
+}
+
+/** Initiative en symboles : succès (ou échecs) nets puis avantages (ou menaces) nets. */
+function initiativeHTML(value) {
+  const { success, advantage } = decodeInitiative(value);
+  const s = success >= 0 ? `${success}${symbolHTML("success")}` : `${-success}${symbolHTML("failure")}`;
+  const a = advantage > 0 ? ` ${advantage}${symbolHTML("advantage")}` : advantage < 0 ? ` ${-advantage}${symbolHTML("threat")}` : "";
+  return `${s}${a}`;
 }
 
 /** Fenêtre de choix : une ligne par combattant, avec boutons pour tout passer en Vigilance ou en Calme. */
