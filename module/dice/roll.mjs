@@ -48,10 +48,21 @@ export class NarrativeRoll extends Roll {
     };
   }
 
-  /** @override */
-  _evaluateTotal() {
+  /** Succès nets, puis avantages nets en centièmes (départage de l'initiative). */
+  _narrativeTotal() {
     const s = this.symbols;
     return (s.success + s.triumph - s.failure - s.despair) + ((s.advantage - s.threat) / 100);
+  }
+
+  /** @override */
+  _evaluateTotal() {
+    return this._narrativeTotal();
+  }
+
+  /** @override — V14 ne passe plus forcément par _evaluateTotal : le total est recalculé à la lecture. */
+  get total() {
+    if ( !this._evaluated ) return undefined;
+    return Math.round(this._narrativeTotal() * 100) / 100;
   }
 
   /** Dégâts infligés si le test de combat réussit : dégâts de l'arme + succès nets. */

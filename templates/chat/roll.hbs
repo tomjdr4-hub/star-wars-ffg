@@ -11,6 +11,7 @@
   <div class="outcome {{#if net.succeeded}}success{{else}}failure{{/if}}">
     {{#if net.succeeded}}{{localize "SWFFG.Result.succeeded"}}{{else}}{{localize "SWFFG.Result.failed"}}{{/if}}
     {{#if net.success}} · {{net.success}} {{swffgSymbol "success"}}{{/if}}
+    {{#if net.failure}} · {{net.failure}} {{swffgSymbol "failure"}}{{/if}}
     {{#if net.advantage}} · {{net.advantage}} {{swffgSymbol "advantage"}}{{/if}}
     {{#if net.threat}} · {{net.threat}} {{swffgSymbol "threat"}}{{/if}}
     {{#if net.triumph}} · {{net.triumph}} {{swffgSymbol "triumph"}}{{/if}}

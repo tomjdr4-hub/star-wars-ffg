@@ -272,3 +272,7 @@
 .star-wars-ffg.destiny-pool .destiny-token.light { background: radial-gradient(circle, #fff 40%, #cfe6ff); }
 .star-wars-ffg.destiny-pool .destiny-token.dark { background: radial-gradient(circle, #333 40%, #000); }
 .star-wars-ffg.destiny-pool .side-label { display: flex; gap: 6px; align-items: center; font-weight: bold; }
+
+/* Libellés dans les titres de section (ex. rang de Contribution) */
+.swffg-sheet h3 label.inline { font-size: var(--font-size-12, 12px); font-family: var(--font-body, inherit); font-weight: normal; }
+.swffg-sheet h3 label.inline input { width: 50px; }

@@ -59,7 +59,7 @@ class SWActorSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       isCharacter: actor.type === "character",
       isVehicle: actor.type === "vehicle",
       tabs: this._prepareTabs("primary"),
-      characteristics: Object.entries(system.characteristics).map(([key, c]) => ({
+      characteristics: Object.entries(system.characteristics ?? {}).map(([key, c]) => ({
         key, value: c.value, total: c.total ?? c.value, label: SWFFG.CHARACTERISTICS[key].label, abbr: SWFFG.CHARACTERISTICS[key].abbr
       })),
       items: this.#prepareItems()

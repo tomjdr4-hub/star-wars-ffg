@@ -155,6 +155,11 @@ export class ForcePowerData extends BaseItemData {
   }
 }
 
+/** Case vide d'arborescence (les valeurs initiales d'un tableau ne sont pas complétées par Foundry). */
+const BLANK_CELL = {
+  name: "", uuid: "", activation: "passive", ranked: false, text: "", linkRight: false, linkDown: false, learned: false
+};
+
 /**
  * Spécialité : 4 compétences de carrière bonus et une arborescence de 20 talents (4 colonnes × 5 rangées).
  * Le coût d'une case est 5 × rangée. Les liens indiquent les chemins d'achat possibles.
@@ -178,7 +183,7 @@ export class SpecializationData extends BaseItemData {
       careerSkills: new ArrayField(new StringField({ required: true, choices: Object.keys(SKILLS) })),
       // Fugitif de la Force (AoE) et Aspirant de la Force (EdR) donnent une Valeur de Force de 1.
       forceRating: int(0, { min: 0 }),
-      talents: new ArrayField(cell(), { initial: () => Array.from({ length: 20 }, () => ({})) })
+      talents: new ArrayField(cell(), { initial: () => Array.from({ length: 20 }, () => ({ ...BLANK_CELL })) })
     };
   }
 }
